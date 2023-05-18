@@ -22,6 +22,7 @@
 			"@root/*": ["./*"],
 			"@components/*": ["./src/components/*"],
 			"@constants/*": ["./src/constants/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@styles/*": ["./src/styles/*"],
 			"@utils/*": ["./src/utils/*"],
     }
