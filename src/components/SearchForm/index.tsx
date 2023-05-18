@@ -3,16 +3,13 @@ import { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BiMicrophone } from 'react-icons/bi';
 
+import { useSearchQueryValue } from '@hooks/useSearchQueryValue';
 import SearchInstance from '@utils/SearchInstance';
 
 const SearchForm = () => {
-	const [searchFormInputValue, setSearchFormInputValue] = useState<string>('');
 	const [buttonSubmitType, setButtonSubmitType] = useState<string>('swoop-search');
+	const { value: searchQuery, bind: bindSearchQuery, reset: resetSearchQuery } = useSearchQueryValue('');
 	const searchInstance = new SearchInstance();
-
-	const handleSearchFormInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchFormInputValue(e.target.value);
-	};
 
 	const handleSearchFormButtonClick = (e: React.PointerEvent<HTMLButtonElement>) => {
 		const buttonText: string = e.currentTarget.innerText;
@@ -26,9 +23,9 @@ const SearchForm = () => {
 	const handleSearchFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (buttonSubmitType === 'swoop-search') {
-			searchInstance.swoopSearch(searchFormInputValue);
+			searchInstance.swoopSearch(searchQuery);
 		} else {
-			searchInstance.quickResultSearch(searchFormInputValue);
+			searchInstance.quickResultSearch(searchQuery);
 		}
 	};
 
@@ -39,10 +36,9 @@ const SearchForm = () => {
 					<AiOutlineSearch className="mr-3 h-5 text-gray-500" />
 					<input
 						type="text"
-						value={searchFormInputValue}
-						onChange={handleSearchFormInputChange}
 						className="flex-grow bg-transparent text-[#eee] focus:outline-none"
 						aria-label="Search form input field"
+						{...bindSearchQuery}
 					/>
 					<BiMicrophone className="h-5 text-gray-500" />
 				</div>
