@@ -5,41 +5,14 @@ import { PRIMARY_NAV_LINKS, SECONDARY_NAV_LINKS } from '@constants/index';
 import Container from '@components/Container';
 import NavLinks from './NavLinks';
 
-import useAxios from '@/hooks/useAxios';
-
 interface HeaderProps {
 	showNav?: boolean;
 }
-
-const BASE_URL = `https://api.swoopsearch.dev:8000/search?q=`;
-const URL_OPTIONS = `&category_general=1&language=auto&time_range=&safesearch=0&theme=simple`;
-const term = 'hello';
-const REQ_URL = `${BASE_URL}${term}`;
-
-const requestConfig = {
-	url: `${REQ_URL}`,
-	method: 'GET',
-};
-
 
 const Header = ({ showNav }: HeaderProps) => {
 	const navInView = 'visible';
 	const navHidden = 'hidden';
 	const [showNavClassNames, setShowNavClassNames] = useState(navInView);
-	const [response, controls] = useAxios<any, Error>(requestConfig, []);
-console.log('header')
-	useEffect(() => {
-		if (response.type === 'success') {
-			// Handle successful response
-			console.log('Data:', response.data);
-		  } else if (response.type === 'error') {
-			// Handle error response
-			console.log('error');
-		  } else {
-			console.log('lalala')
-		  }
-	  console.log('ue fired')
-	}, [response]);
 
 	useEffect(() => {
 		if (!showNav) {

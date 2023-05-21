@@ -97,7 +97,7 @@ export const useAxios = <S = any, U = any>(
     const [state, dispatch] = useReducer(reducer, skipRequest() ? idle() : loading());
     const [prevDeps, setPrevDeps] = useState(dependencies);
     const [rerun, setRerun] = useState(false);
-    console.log('making call')
+
     if (!areHookInputsEqual(dependencies, prevDeps)) {
         dispatch(skipRequest() ? idle() : loading());
         setPrevDeps(dependencies);
@@ -113,7 +113,7 @@ export const useAxios = <S = any, U = any>(
                 if (axios.isCancel(err)) return;
                 dispatch(error(err));
             });
-        console.log('rand request function')
+
         return { source, promise };
     };
 
@@ -125,7 +125,6 @@ export const useAxios = <S = any, U = any>(
 
     useEffect(() => {
         if (!rerun) return;
-        console.log('in hook useeffect')
         const { source, promise } = request();
         promise.then(() => setRerun(false));
         return () => source.cancel();
