@@ -9,7 +9,7 @@ import SearchInstance from '@utils/SearchInstance';
 import useAxios from '@/hooks/useAxios';
 
 const requestConfig = {
-	url: 'https://api.swoopsearch.dev/search?q=horses',
+	url: 'https://swoopsearch.dev/search?q=horses',
 	method: 'GET',
 }
 
