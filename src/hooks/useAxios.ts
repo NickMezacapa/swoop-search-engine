@@ -107,7 +107,14 @@ export const useAxios = <S = any, U = any>(
         dispatch(loading());
         const source = axios.CancelToken.source();
         const promise = axios
-            .request({ ...axiosConfig, cancelToken: source.token })
+            .request({
+                ...axiosConfig,
+                cancelToken: source.token,
+                headers: {
+                    ...axiosConfig.headers,
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
             .then((res) => dispatch(success(res.data)))
             .catch((err) => {
                 if (axios.isCancel(err)) return;
