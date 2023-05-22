@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BiMicrophone } from 'react-icons/bi';
@@ -18,6 +18,12 @@ const SearchForm = () => {
 	const { value: searchQuery, bind: bindSearchQuery, reset: resetSearchQuery } = useSearchQueryValue('');
 	const searchInstance = new SearchInstance();
 	const [response, controls] = useAxios<any, Error>(requestConfig, []);
+	const responseRef = useRef(response);
+
+
+	useEffect(() => {
+		console.log(responseRef.current);
+	}, [])
 
 	const handleSearchFormButtonClick = (e: React.PointerEvent<HTMLButtonElement>) => {
 		const buttonText: string = e.currentTarget.innerText;
@@ -31,7 +37,6 @@ const SearchForm = () => {
 	const handleSearchFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (buttonSubmitType === 'swoop-search') {
-			console.log('response:', response);
 			searchInstance.swoopSearch(searchQuery);
 		} else {
 			searchInstance.quickResultSearch(searchQuery);
