@@ -6,10 +6,18 @@ import { BiMicrophone } from 'react-icons/bi';
 import { useSearchQueryValue } from '@hooks/useSearchQueryValue';
 import SearchInstance from '@utils/SearchInstance';
 
+import useAxios from '@/hooks/useAxios';
+
+const requestConfig = {
+	url: 'https://api.swoopsearch.dev/search?q=horses',
+	method: 'GET',
+}
+
 const SearchForm = () => {
 	const [buttonSubmitType, setButtonSubmitType] = useState<string>('swoop-search');
 	const { value: searchQuery, bind: bindSearchQuery, reset: resetSearchQuery } = useSearchQueryValue('');
 	const searchInstance = new SearchInstance();
+	const [response, controls] = useAxios<any, Error>(requestConfig, []);
 
 	const handleSearchFormButtonClick = (e: React.PointerEvent<HTMLButtonElement>) => {
 		const buttonText: string = e.currentTarget.innerText;
@@ -23,6 +31,7 @@ const SearchForm = () => {
 	const handleSearchFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (buttonSubmitType === 'swoop-search') {
+			console.log('response:', response);
 			searchInstance.swoopSearch(searchQuery);
 		} else {
 			searchInstance.quickResultSearch(searchQuery);
