@@ -1,20 +1,17 @@
-import { useRouter } from 'next/router';
+import { SearchResultsProxy } from '@proxies/useGetSearchResultsProxy';
 
 /**
  * Represents a search instance that provides
  * a specific search functionality.
  */
 class SearchInstance {
-    public router = useRouter();
 
     /**
      * Performs a search with the specified query
      * @param {string} query - The search query.
      */
     swoopSearch(query: string) {
-        this.router.push(`/search?term=${query}`).catch((error) => {
-            console.error('An error occurred while navigating:', error);
-        });
+        return SearchResultsProxy(query);
     }
 
     /**
@@ -23,9 +20,7 @@ class SearchInstance {
      * @param {string} query - The search query.
      */
     quickResultSearch(query: string) {
-        this.router.push(`/quickResults/${query}`).catch((error) => {
-            console.error('An error occurred while navigating:', error);
-        });
+        console.log('quickResultSearch')
     }
 }
 

@@ -1,22 +1,17 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BiMicrophone } from 'react-icons/bi';
 
 import { useSearchQueryValue } from '@hooks/useSearchQueryValue';
-import SearchInstance from '@utils/SearchInstance';
+import { handleRouting } from '@/utils/handleRouting';
 
-import useAxios from '@/hooks/useAxios';
 
-const requestConfig = {
-	url: 'https://api.swoopsearch.dev/search?q=horses',
-	method: 'GET',
-}
-
-const SearchForm = () => {
+const SearchFormPrimary = () => {
 	const [buttonSubmitType, setButtonSubmitType] = useState<string>('swoop-search');
 	const { value: searchQuery, bind: bindSearchQuery, reset: resetSearchQuery } = useSearchQueryValue('');
-	const searchInstance = new SearchInstance();
+	const router = useRouter();
 
 	const handleSearchFormButtonClick = (e: React.PointerEvent<HTMLButtonElement>) => {
 		const buttonText: string = e.currentTarget.innerText;
@@ -30,9 +25,9 @@ const SearchForm = () => {
 	const handleSearchFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (buttonSubmitType === 'swoop-search') {
-			searchInstance.swoopSearch(searchQuery);
+			handleRouting(router, searchQuery);
 		} else {
-			searchInstance.quickResultSearch(searchQuery);
+			handleRouting(router, searchQuery);
 		}
 	};
 
@@ -68,4 +63,4 @@ const SearchForm = () => {
 	);
 };
 
-export default SearchForm;
+export default SearchFormPrimary;

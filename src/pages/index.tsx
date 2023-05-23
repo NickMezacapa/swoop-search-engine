@@ -4,7 +4,7 @@ import { type NextPage } from 'next';
 import Container from '@components/Container';
 import GradientBackground from '@components/GradientBackground';
 import Header from '@components/Header';
-import SearchForm from '@components/SearchForm';
+import SearchFormPrimary from '@components/SearchForm/SearchFormPrimary';
 
 const Home: NextPage = () => (
 	<section
@@ -21,7 +21,7 @@ const Home: NextPage = () => (
 					className="z-30 w-[65%] max-w-[550px] object-contain md:w-[45%]"
 				/>
 				<p className="mt-[1rem] pb-[1rem] italic text-[#a1a1a6]">100% private search engine</p>
-				<SearchForm />
+				<SearchFormPrimary />
 			</div>
 		</Container>
 	</section>
