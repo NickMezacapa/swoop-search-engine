@@ -1,6 +1,10 @@
-const GradientBackground = () => (
+interface GradientBackgroundProps {
+	className: string;
+}
+
+const GradientBackground = ({ className }: GradientBackgroundProps) => (
 	<div className="PageGradientBlur z-20 h-full rounded-lg">
-		<div className="HomeGradient h-full rounded-lg" />
+		<div className={`${className} h-full rounded-lg`} />
 	</div>
 );
 

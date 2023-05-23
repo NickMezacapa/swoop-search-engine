@@ -53,7 +53,7 @@ body {
 	overflow-x: hidden;
 	overflow-y: scroll;
 	color: rgb(var(--foreground-rgb));
-	background-color: #1d1d1f;
+	background-color: #121212;
 }
 
 :root {
@@ -110,9 +110,47 @@ body {
 		#a84ddf;
 	position: absolute;
 	width: 50%;
-	height: 20%;
+	height: 18%;
 	opacity: 0.5;
 	margin-top: 10rem;
+}
+
+.SearchGradient-Top {
+	background: conic-gradient(
+			from 180deg at 50% 50%,
+			#ba71f9 -69.37deg,
+			#ce92f0 31.88deg,
+			#b47ad8 120deg,
+			#787fdf 204.37deg,
+			#c60aff 290.63deg,
+			#0f83ff 391.87deg
+		),
+		#a84ddf;
+	position: absolute;
+	width: 40%;
+	height: 50%;
+	opacity: 0.2;
+	margin-top: -10rem;
+	left: -10rem;
+}
+
+.SearchGradient-Bottom {
+	background: conic-gradient(
+			from 180deg at 50% 50%,
+			#ba71f9 -69.37deg,
+			#ce92f0 31.88deg,
+			#b47ad8 120deg,
+			#787fdf 204.37deg,
+			#c60aff 290.63deg,
+			#0f83ff 391.87deg
+		),
+		#a84ddf;
+	position: absolute;
+	width: 50%;
+	height: 50%;
+	opacity: 0.2;
+	margin-top: 18rem;
+	right: -10rem;
 }
 
 .Logo-Headline {

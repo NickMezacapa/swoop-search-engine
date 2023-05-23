@@ -1,9 +1,10 @@
 import Head from 'next/head';
-import ResultsHeader from '@/components/ResultsHeader';
+import ResultsHeader from '@components/ResultsHeader';
+import GradientBackground from '@components/GradientBackground';
 
 const Search = () => {
   return (
-    <div>
+    <div className='relative h-full min-h-[100vh] w-full'>
         <Head>
             <title>Results</title>
             <meta
@@ -19,6 +20,8 @@ const Search = () => {
 			<meta name="msapplication-TileColor" content="#1d1d1f" />
 			<meta name="theme-color" content="#000000" />
         </Head>
+        <GradientBackground className='SearchGradient-Top' />
+        <GradientBackground className='SearchGradient-Bottom' />
         <ResultsHeader />
         {/* Search results */}
     </div>

@@ -25,7 +25,7 @@ const ThemeLayout = ({ children, classNames }: LayoutProps) => (
 		</Head>
 		<main
 			className={clsx(
-				`h-auto min-h-screen w-screen max-w-full bg-[#1d1d1f] text-[#eee] transition ${
+				`h-auto min-h-screen w-screen max-w-full bg-[#121212] text-[#eee] transition ${
 					classNames || ''
 				} MainApp`,
 			)}>

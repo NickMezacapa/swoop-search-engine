@@ -10,7 +10,7 @@ const Home: NextPage = () => (
 	<section
 		className="max-w-screen relative flex h-full min-h-[100vh] flex-col bg-[#000000]"
 		aria-label="Homepage for Swoop Search">
-		<GradientBackground />
+		<GradientBackground className='HomeGradient' />
 		<Container className="relative z-30 w-full">
 			<Header showNav />
 			<div className="relative z-30 flex h-full min-h-[100vh] w-full flex-col items-center justify-center">
