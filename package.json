@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "axios": ">=0.18",
+    "cheerio": "^1.0.0-rc.12",
     "clsx": "^1.2.1",
     "downshift": "^7.6.0",
     "framer-motion": "^10.12.10",
