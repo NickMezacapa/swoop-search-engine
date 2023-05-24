@@ -5,7 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { BiMicrophone } from 'react-icons/bi';
 
 import { useSearchQueryValue } from '@hooks/useSearchQueryValue';
-import { handleRouting } from '@/utils/helpers/handleRouting';
+import { handleRouting } from '@utils/helpers/handleRouting';
 
 
 const SearchFormPrimary = () => {

@@ -1,5 +1,5 @@
 import { useMemo, useRef } from 'react';
-import { useGetSearchResults } from '@/hooks/useGetSearchResults';
+import { useGetSearchResults } from '@hooks/useGetSearchResults';
 
 /**
  * @name SearchResultsProxy

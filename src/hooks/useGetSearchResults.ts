@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import useAxios from '@/hooks/useAxios';
-import { useParseHtml } from '@/hooks/useParseHtml';
-import { type SearchResult } from '@/hooks/useParseHtml';
+import useAxios from '@hooks/useAxios';
+import { useParseHtml } from '@hooks/useParseHtml';
+import { type SearchResult } from '@hooks/useParseHtml';
 
 const BASE_SEARCH_URL = 'https://api.swoopsearch.dev/search';
 
