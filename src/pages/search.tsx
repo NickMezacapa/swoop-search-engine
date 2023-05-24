@@ -2,11 +2,15 @@ import Head from 'next/head';
 import ResultsHeader from '@components/ResultsHeader';
 import GradientBackground from '@components/GradientBackground';
 
+// test trpc
+import { api } from '@utils/api';
+
 const Search = () => {
+
   return (
-    <div className='relative h-full min-h-[100vh] w-full'>
+    <section className='relative h-full min-h-[100vh] w-full overflow-x-hidden'>
         <Head>
-            <title>Results</title>
+            <title>Swoop Results</title>
             <meta
 				name="description"
 				content="Search results for given query."
@@ -23,8 +27,11 @@ const Search = () => {
         <GradientBackground className='SearchGradient-Top' />
         <GradientBackground className='SearchGradient-Bottom' />
         <ResultsHeader />
+        <div className='text-4xl text-[#eee]'>
+          {/* add trpc code */}
+        </div>
         {/* Search results */}
-    </div>
+    </section>
   )
 }
 

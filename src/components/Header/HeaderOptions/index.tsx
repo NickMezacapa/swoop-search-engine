@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { HEADER_OPTION_LINKS } from '@/constants';
-import { type HeaderOptionLink } from '@/constants';
+import { HEADER_OPTION_LINKS } from '@constants/index';
+import { type HeaderOptionLink } from '@utils/types';
 
 import HeaderOption from './HeaderOption';
 

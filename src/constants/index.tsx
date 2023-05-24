@@ -1,21 +1,8 @@
-import { useState } from 'react';
 import { AiOutlinePlayCircle, AiOutlineSearch } from 'react-icons/ai';
-import { BsImages, BsNewspaper, BsThreeDotsVertical } from 'react-icons/bs';
+import { BsImages, BsNewspaper } from 'react-icons/bs';
 import { TbMapSearch } from 'react-icons/tb';
 
-import { type IconType } from 'react-icons';
-
-interface NavLink {
-    label: string;
-    href: string;
-}
-
-export interface HeaderOptionLink {
-    Icon: IconType;
-    title: string;
-    selected?: boolean;
-    href?: string;
-}
+import { type NavLink, HeaderOptionLink } from '@utils/types';
 
 export const PRIMARY_NAV_LINKS: NavLink[] = [
     { label: 'About', href: '/about' },

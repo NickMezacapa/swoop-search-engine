@@ -24,6 +24,7 @@
 			"@constants/*": ["./src/constants/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@proxies/*": ["./src/proxies/*"],
+      "@server/*": ["./src/server/*"],
       "@styles/*": ["./src/styles/*"],
 			"@utils/*": ["./src/utils/*"],
     }

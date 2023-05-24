@@ -5,10 +5,7 @@ import { FiSettings } from 'react-icons/fi';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
-interface NavLink {
-	label: string;
-	href: string;
-}
+import { type NavLink } from '@utils/types';
 
 interface NavLinkProps {
 	navLinks: NavLink[];

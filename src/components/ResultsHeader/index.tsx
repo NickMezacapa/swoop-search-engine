@@ -20,8 +20,8 @@ const ResultsHeader = () => {
     };
 
   return (
-    <header className='w-full bg-[rgba(9,9,9,0.7)] sticky border-b border-gray-700 pb-2 z-[9999] backdrop-blur-md'>
-        <div className='flex w-full max-w-[86rem] p-6 items-center'>
+    <header className='w-full min-w-screen bg-[rgba(9,9,9,0.7)] sticky border-b border-gray-700 pb-2 z-[9999] backdrop-blur-md'>
+        <div className='flex w-full p-6 items-center'>
             <Image
                 alt='Swoop Search Logo'
                 aria-label='Swoop Search Logo'

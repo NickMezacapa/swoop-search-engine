@@ -44,6 +44,7 @@
 html {
 	display: block;
 	scroll-behavior: smooth;
+	overflow-x: hidden;
 }
 
 body {
