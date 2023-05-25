@@ -114,3 +114,41 @@ input:checked + .ThemeSlider {
   .ThemeSlider.SliderRound:before {
 	border-radius: 50%;
   }
+
+
+.images-bg-fade {
+	background-image: url('/assets/images.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 200% 200%;
+	max-width: 250px;
+	width: 250px;
+	min-width: 250px;
+}
+.videos-bg-fade {
+	background-image: url('/assets/videos-bg.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 100%;
+	max-width: 250px;
+	width: 250px;
+	min-width: 250px;
+}
+.news-bg-fade {
+	background-image: url('/assets/cover-image-frontpage.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 200% 100%;
+	max-width: 250px;
+	width: 250px;
+	min-width: 250px;
+}
+.maps-bg-fade {
+	background-image: url('/assets/maps.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 200% 150%;
+	max-width: 250px;
+	width: 250px;
+	min-width: 250px;
+}

@@ -15,19 +15,16 @@ import clsx from 'clsx';
 interface FrameProps {
 	className: string;
 	children: React.ReactNode;
-	priority: boolean;
 }
 
 export function Frame({
 	className,
 	children,
-	priority = false,
-	...props
   }: FrameProps) {
 	return (
-	  <div className={clsx('relative aspect-[366/729]', className)} {...props}>
-		<div className="inset-y-[calc(1/729*100%)] rounded-[calc(58/366*100%)/calc(58/729*100%)] shadow-2xl" />
-		<div className="grid h-[calc(686/729*100%)] w-[calc(318/366*100%)] transform grid-cols-1 overflow-hidden">
+	  <div className={clsx('relative', className)}>
+		<div className="shadow-2xl" />
+		<div className="grid h-[calc(686/729*100%)] transform grid-cols-1 overflow-hidden">
 		  	{children}
 		</div>
 	  </div>
@@ -36,18 +33,26 @@ export function Frame({
 
   export const Filters = () => {
 	return (
-		<div className="-mx-4 hidden h-[200px] mt-4 lg:flex justify-between [mask-image:linear-gradient(to_bottom,white_60%,transparent)] sm:mx-0 lg:-inset-x-10 lg:-top-10 lg:-bottom-20 xl:-bottom-32 text-[#eae8ed] leading-[1.08349] tracking-[-0.003em] text-xl">
-			<Frame className="max-w-[250px] min-w-[250px] border border-gray-400 shadow-2xl px-6 py-6 rounded-lg bg-[#1d1d1f7f] backdrop-blur-md" priority>
-				<p>Images</p>
+		<div className="-mx-4 hidden h-[200px] mt-4 lg:flex justify-between [mask-image:linear-gradient(to_bottom,white_60%,transparent)] sm:mx-0 lg:-top-10 lg:-bottom-20 xl:-bottom-32 text-[#eae8ed] leading-[1.08349] tracking-[-0.003em] text-xl">
+			<Frame className="images-bg-fade relative overflow-hidden transition cursor-pointer hover:scale-[1.1] w-[250px] border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md">
+				<div className='absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-[#1d1d1f7f] backdrop-blur-sm'>
+					<p className='pl-6 pt-6'>Images</p>
+				</div>
 			</Frame>
-			<Frame className="max-w-[250px] min-w-[250px] px-6 py-6 rounded-lg border border-gray-400 shadow-2xl bg-[#1d1d1f7f] backdrop-blur-md" priority>
-				<p>Videos</p>
+			<Frame className="videos-bg-fade relative overflow-hidden transition cursor-pointer hover:scale-[1.1] w-[250px] border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md">
+				<div className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] backdrop-blur-sm'>
+					<p className='pl-6 pt-6'>Videos</p>
+				</div>
 			</Frame>
-			<Frame className="max-w-[250px] min-w-[250px] px-6 py-6 rounded-lg border border-gray-400 shadow-2xl bg-[#1d1d1f7f] backdrop-blur-md" priority>
-				<p>News</p>
+			<Frame className="news-bg-fade relative overflow-hidden transition cursor-pointer hover:scale-[1.1] w-[250px] border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md">
+				<div className='absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-[#1d1d1f7f] backdrop-blur-sm'>
+					<p className='pl-6 pt-6'>News</p>
+				</div>
 			</Frame>
-			<Frame className="max-w-[250px] min-w-[250px] px-6 py-6 rounded-lg border border-gray-400 shadow-2xl bg-[#1d1d1f7f] backdrop-blur-md" priority>
-				<p>Maps</p>
+			<Frame className="maps-bg-fade relative overflow-hidden transition cursor-pointer hover:scale-[1.1] w-[250px] border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md">
+				<div className='absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-[#1d1d1f7f] backdrop-blur-sm'>
+					<p className='pl-6 pt-6'>Maps</p>
+				</div>
 			</Frame>
 		</div>
 	);
