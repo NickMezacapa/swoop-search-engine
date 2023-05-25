@@ -24,8 +24,8 @@ const Search = () => {
 			<meta name="theme-color" content="#000000" />
         </Head>
         <ResultsHeader />
+                  {/* add trpc code */}
         <div className='text-4xl text-[#eee]'>
-          {/* add trpc code */}
         </div>
         {/* Search results */}
     </section>
