@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { FiSettings } from 'react-icons/fi';
 
-import SearchFormSecondary from '@components/SearchForm/SearchFormSecondary';
+import SearchFormSecondary from '@components/SearchForm/Secondary';
 import HeaderOptions from '@components/Header/HeaderOptions';
 
 const ResultsHeader = () => {
