@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { type NextPage } from 'next';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
@@ -17,10 +18,10 @@ interface FrameProps {
 	children: React.ReactNode;
 }
 
-export function Frame({
+export const Frame = ({
 	className,
 	children,
-  }: FrameProps) {
+  }: FrameProps) => {
 	return (
 	  <div className={clsx('relative', className)}>
 		<div className="shadow-2xl" />
@@ -60,7 +61,26 @@ export function Frame({
 
 const Home: NextPage = () => {
 	const { systemTheme, theme, setTheme } = useTheme();
-	const currentTheme = theme === 'system' ? systemTheme : theme;
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	const handleDynamicImageChange = () => {
+		if (!mounted) return null;
+
+		const currentTheme = theme === 'system' ? systemTheme : theme;
+        if (currentTheme === 'dark') {
+			return (
+				<Image src='/assets/incognito-light.png' alt='Incognito Logo' height={40} width={65} />
+			);
+		} else {
+			return (
+				<Image src='/assets/incognito-icon.png' alt='Incognito Logo' height={40} width={65} />
+			);
+		}
+	};
 	return (
 		<section
 			className="max-w-screen relative flex h-full min-h-[100vh] flex-col dark:bg-[#202125] bg-[#F6F5F8]"
@@ -70,7 +90,7 @@ const Home: NextPage = () => {
 				<div className='w-full h-full px-10'>
 					<HomeHeader />
 					<div className='text-[#1d1d1f] mt-[6rem] dark:text-[#EAE8ED] font-semibold leading-[1.08349] tracking-[-0.003em] text-6xl flex gap-x-4 items-center select-none'>
-						<Image src={currentTheme === 'dark' ? '/assets/incognito-light.png' : '/assets/incognito-icon.png'} alt='Incognito Logo' height={40} width={65} />
+						{handleDynamicImageChange()}
 						<h1>ViewPoint</h1>
 					</div>
 					<SearchFormPrimary />
