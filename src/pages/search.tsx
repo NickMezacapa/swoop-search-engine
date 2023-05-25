@@ -3,7 +3,6 @@ import ResultsHeader from '@components/ResultsHeader';
 
 // test trpc
 import { api } from '@utils/api';
-import ThemeButton from '@/components/ThemeLayout/ThemeButton';
 
 const Search = () => {
 
@@ -27,7 +26,6 @@ const Search = () => {
         <ResultsHeader />
         <div className='text-4xl text-[#eee]'>
           {/* add trpc code */}
-          <ThemeButton className='absolute bottom-20 text-4xl cursor-pointer dark:text-[#eee] z-[9999999] border border-red-500 light:text-[#1d1d1f] left-0' />
         </div>
         {/* Search results */}
     </section>
