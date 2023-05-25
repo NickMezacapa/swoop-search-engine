@@ -133,6 +133,7 @@ input:checked + .ThemeSlider {
 	max-width: 250px;
 	width: 250px;
 	min-width: 250px;
+	height: 100%;
 }
 .news-bg-fade {
 	background-image: url('/assets/cover-image-frontpage.png');
