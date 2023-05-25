@@ -34,23 +34,23 @@ export function Frame({
   export const Filters = () => {
 	return (
 		<div className="-mx-4 hidden h-[200px] mt-4 lg:flex justify-between [mask-image:linear-gradient(to_bottom,white_60%,transparent)] sm:mx-0 lg:-top-10 lg:-bottom-20 xl:-bottom-32 text-[#eae8ed] leading-[1.08349] tracking-[-0.003em] text-xl">
-			<Frame className="images-bg-fade relative transition cursor-pointer hover:scale-[1.01] w-[250px] border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md dark:border-gray-600">
-				<div className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] backdrop-blur-sm'>
+			<Frame className="images-bg-fade relative transition cursor-pointer hover:scale-[1.01] w-[250px] overflow-hidden border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md dark:border-gray-600">
+				<div className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] rounded-lg backdrop-blur-sm'>
 					<p className='pl-6 pt-6'>Images</p>
 				</div>
 			</Frame>
-			<Frame className="videos-bg-fade relative transition cursor-pointer hover:scale-[1.01] w-[250px] border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md dark:border-gray-600">
-				<div className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] backdrop-blur-sm'>
+			<Frame className="videos-bg-fade relative transition cursor-pointer hover:scale-[1.01] w-[250px] overflow-hidden border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md dark:border-gray-600">
+				<div className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] rounded-lg backdrop-blur-sm'>
 					<p className='pl-6 pt-6'>Videos</p>
 				</div>
 			</Frame>
 			<Frame className="news-bg-fade relative overflow-hidden transition cursor-pointer hover:scale-[1.01] w-[250px] border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md dark:border-gray-600">
-				<div className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] backdrop-blur-sm'>
+				<div className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] rounded-lg backdrop-blur-sm'>
 					<p className='pl-6 pt-6'>News</p>
 				</div>
 			</Frame>
 			<Frame className="maps-bg-fade relative overflow-hidden transition cursor-pointer hover:scale-[1.01] w-[250px] border border-gray-400 shadow-2xl rounded-lg bg-[#1d1d1f7f] backdrop-blur-md dark:border-gray-600">
-				<div className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] backdrop-blur-sm'>
+				<div className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] rounded-lg backdrop-blur-sm'>
 					<p className='pl-6 pt-6'>Maps</p>
 				</div>
 			</Frame>
