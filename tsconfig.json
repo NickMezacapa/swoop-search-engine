@@ -22,6 +22,7 @@
 			"@root/*": ["./*"],
 			"@components/*": ["./src/components/*"],
 			"@constants/*": ["./src/constants/*"],
+      "@contexts/*": ["./src/contexts/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@proxies/*": ["./src/proxies/*"],
       "@server/*": ["./src/server/*"],
@@ -29,6 +30,6 @@
 			"@utils/*": ["./src/utils/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "ecosystem.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

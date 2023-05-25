@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { ThemeProvider } from 'next-themes';
 import clsx from 'clsx';
 
 interface LayoutProps {
@@ -23,14 +24,16 @@ const ThemeLayout = ({ children, classNames }: LayoutProps) => (
 			<meta name="msapplication-TileColor" content="#1d1d1f" />
 			<meta name="theme-color" content="#000000" />
 		</Head>
-		<main
-			className={clsx(
-				`h-auto min-h-screen w-screen max-w-full bg-[#121212] text-[#eee] transition ${
-					classNames || ''
-				} MainApp`,
-			)}>
-			{children}
-		</main>
+		<ThemeProvider enableSystem={true} attribute="class">
+			<main
+				className={clsx(
+					`h-auto min-h-screen w-screen max-w-full bg-[#121212] text-[#eee] transition ease ${
+						classNames || ''
+					} MainApp`,
+				)}>
+				{children}
+			</main>
+		</ThemeProvider>
 	</>
 );
 

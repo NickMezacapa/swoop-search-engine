@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 
 import useSearchQueryValue from '@hooks/useSearchQueryValue';
-import { handleRouting } from '@/utils/helpers/handleRouting';
+import { handleRouting } from '@utils/helpers/handleRouting';
 
 const SearchFormSecondary = () => {
     const [showCloseIcon, setShowCloseIcon] = useState('inline-flex');
