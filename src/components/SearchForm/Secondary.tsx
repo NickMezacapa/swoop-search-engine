@@ -11,11 +11,12 @@ const SearchFormSecondary = () => {
     const { value: searchQuery, bind: bindSearchQuery, reset: resetSearchQuery } = useSearchQueryValue('');
     const searchQueryRef = useRef<HTMLInputElement | null>(null);
     const router = useRouter();
+    let path = router.pathname === '/' ? '/search' : router.pathname;
 
     const handleSearchFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!searchQuery) return;
-        handleRouting(router, searchQuery);
+        handleRouting(router, searchQuery, path);
     };
 
     useEffect(() => {
