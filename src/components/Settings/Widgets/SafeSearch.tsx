@@ -11,7 +11,7 @@ const SafeSearch = () => {
 
   return (
     <div className='w-full h-full py-2 text-[#eae8ed] font-light flex flex-col'>
-        <h3>Safe Search</h3>
+        <h3 className='select-none'>Safe Search</h3>
         <ul className='text-sm decoration-none flex justify-between mt-4'>
             <div className='w-full flex items-center justify-between'>
                 <div className='h-full w-1/3 border-r border-[#989799] flex items-center justify-center'>

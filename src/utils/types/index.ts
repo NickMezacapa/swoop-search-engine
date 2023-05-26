@@ -19,3 +19,33 @@ export type SearchSuggestion = {
     alt: string;
     id: number;
 }
+
+export type SearchFilter = {
+    Icon: IconType;
+    title: string;
+    path: string;
+    alt: string;
+    id: number;
+    className: string;
+}
+
+export interface DimensionObject {
+    width: number;
+    height: number;
+    top: number;
+    left: number;
+    x: number;
+    y: number;
+    right: number;
+    bottom: number;
+}
+
+export type UseDimensionsHook = [
+    (node: HTMLElement) => void,
+    {} | DimensionObject,
+    HTMLElement
+];
+
+export interface UseDimensionsArgs {
+    liveMeasure?: boolean;
+}

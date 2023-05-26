@@ -115,6 +115,15 @@ input:checked + .ThemeSlider {
 	border-radius: 50%;
   }
 
+  .allResults-bg-fade {
+	background-image: url('/assets/globe.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 150% 100%;
+	max-width: 250px;
+	width: 250px;
+	min-width: 250px;
+  }
 
 .images-bg-fade {
 	background-image: url('/assets/images.png');

@@ -4,17 +4,19 @@ import Head from 'next/head';
 import DefaultHome from '@components/DefaultPage/DefaultHome';
 import ResultsHeader from '@components/Headers/ResultsHeader';
 
-const Search = () => {
+const News = () => {
   const router = useRouter();
 
   let path: string = '';
-  if (router.pathname !== '/search') path = router.pathname;
+  if (router.pathname !== '/search') {
+    path = router.pathname.replace(/^./, "");
+  };
   if (!router.query.q) return <DefaultHome variant={path} />;
 
   return (
-    <section className='relative h-full min-h-[100vh] w-full overflow-x-hidden'>
+    <section className='relative h-full min-h-[100vh] w-full overflow-x-hidden' aria-label='Swoop News'>
         <Head>
-            <title>Swoop Results</title>
+            <title>Swoop News</title>
             <meta
 				name="description"
 				content="Search results for given query."
@@ -33,4 +35,4 @@ const Search = () => {
   )
 }
 
-export default Search;
+export default News;

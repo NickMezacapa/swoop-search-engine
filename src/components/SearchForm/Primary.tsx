@@ -9,10 +9,11 @@ import { handleRouting } from '@utils/helpers/handleRouting';
 const SearchFormPrimary = () => {
 	const { value: searchQuery, bind: bindSearchQuery, reset: resetSearchQuery } = useSearchQueryValue('');
 	const router = useRouter();
+	let path = router.pathname === '/' ? '/search' : router.pathname;
 
 	const handleSearchFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		handleRouting(router, searchQuery);
+		handleRouting(router, searchQuery, path);
 	};
 
 	const changeActiveIcon = () => {
@@ -24,7 +25,7 @@ const SearchFormPrimary = () => {
 			return (
 				<AiOutlineClose 
             		onClick={resetSearchQuery}
-            		className='h-7 text-gray-300 cursor-pointer transition duration-100 transform hover:scale-125 sm:mr-3'
+            		className='h-7 text-[#1d1d1fb8] dark:text-gray-300 cursor-pointer transition duration-100 transform hover:scale-125 sm:mr-3'
         		/>
 			);
 		}
@@ -39,7 +40,7 @@ const SearchFormPrimary = () => {
 						type="text"
 						className="flex-grow bg-transparent text-[#1d1d1f] dark:text-[#EAE8ED] focus:outline-none"
 						aria-label="Search form input field"
-						placeholder="Type to start your ViewPoint"
+						placeholder="Type to start your Swoop"
 						{...bindSearchQuery}
 					/>
 					{changeActiveIcon()}
