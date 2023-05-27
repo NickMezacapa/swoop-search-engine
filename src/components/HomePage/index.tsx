@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Container from '@components/Container';
 import SearchFormPrimary from '@components/SearchForm/Primary';
 import HomeHeader from '@components/Headers/HomeHeader';
@@ -17,9 +18,16 @@ const HomePage = ({ variant }: HomePageProps) => {
             <HomeHeaderPanel />
             <div className='w-full h-full px-10'>
                 <HomeHeader />
-                <div className='text-[#1d1d1f] mt-[6rem] dark:text-[#EAE8ED] font-semibold leading-[1.08349] tracking-[-0.003em] text-[2.8rem] sm:text-6xl flex gap-x-4 items-center select-none'>
+                <div className='text-[#1d1d1f] mt-[6rem] ml-[-1rem] dark:text-[#EAE8ED] font-semibold leading-[1.08349] tracking-[-0.003em] text-[2.8rem] sm:text-6xl flex gap-x-4 items-center select-none'>
                     <DynamicLogo />
-                    <h1>Swoop Search</h1>
+                    <h1 className='ml-[-2rem] tracking-tight'>swoop search</h1>
+{/*                     <h1 className='flex'>
+                        <span>sw</span>
+                        <span>
+                        <Image src="/assets/mask-logo.png" alt="Incognito Logo" height={100} width={65} priority />
+                        </span>
+                        <span>p</span>
+                    </h1> */}
                 </div>
                 {variant && (
                     <div className='text-3xl text-blue-500 font-semibold leading-[1.08349] tracking-[-0.003em] mt-6 ml-1'>{variant}</div>

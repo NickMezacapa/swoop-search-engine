@@ -14,9 +14,11 @@ const HomeSearchFilters = () => {
     (opts: SearchFilter) => opts.path !== router.pathname || opts.path !== router.asPath
   );
 
+  // TAILWIND GRADIENT
+  // [mask-image:linear-gradient(to_bottom,white_60%,transparent)]
   return (
     <div className='overflow-x-scroll'>
-      <div className='hidden h-[200px] max-h-[200px] flex-grow mt-4 md:flex gap-x-6 [mask-image:linear-gradient(to_bottom,white_60%,transparent)] text-[#eae8ed] leading-[1.08349] tracking-[-0.003em] text-3xl'>
+      <div className='hidden h-[200px] max-h-[200px] flex-grow mt-4 md:flex gap-x-6 text-[#eae8ed] leading-[1.08349] tracking-[-0.003em] text-3xl'>
         {dynamicSearchFilters.map((item: SearchFilter) => {
           const ItemIcon = item.Icon;
           return (
