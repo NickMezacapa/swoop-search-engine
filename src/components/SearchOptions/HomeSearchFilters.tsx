@@ -1,12 +1,78 @@
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { SEARCH_FILTER_OPTIONS } from '@constants/index';
 import { type SearchFilter } from '@utils/types';
-
+import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
 import GradientTile from '@components/GradientTile';
 
 const HomeSearchFilters = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(false);
+  
+  const parentRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  const handleXScroll = () => {
+    if (parentRef.current) {
+      const scrollWidth = parentRef.current.scrollWidth;
+      const containerWidth = parentRef.current.clientWidth;
+      const newPosition = scrollPosition + containerWidth;
+  
+      if (newPosition < scrollWidth) {
+        setScrollPosition(newPosition);
+        parentRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
+      } else {
+        setScrollPosition(0);
+        parentRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleScrollLeft = () => {
+    if (parentRef.current) {
+      const newPosition = scrollPosition - parentRef.current.clientWidth;
+
+      if (newPosition >= 0) {
+        setScrollPosition(newPosition);
+        parentRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
+      } else {
+        setScrollPosition(0);
+        parentRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleScrollRight = () => {
+    if (parentRef.current) {
+      const scrollWidth = parentRef.current.scrollWidth;
+      const containerWidth = parentRef.current.clientWidth;
+      const newPosition = scrollPosition + containerWidth;
+
+      if (newPosition < scrollWidth) {
+        setScrollPosition(newPosition);
+        parentRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
+      } else {
+        setScrollPosition(scrollWidth);
+        parentRef.current.scrollTo({ left: scrollWidth, behavior: 'smooth' });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (parentRef.current) {
+      const containerWidth = parentRef.current.clientWidth;
+      const scrollWidth = parentRef.current.scrollWidth;
+      const maxScroll = scrollWidth - containerWidth;
+      const currentPosition = parentRef.current.scrollLeft;
+
+      setShowLeftArrow(currentPosition > 0);
+      setShowRightArrow(currentPosition < maxScroll);
+    }
+  }, [scrollPosition]);
+
+
 
   // only want to display search filters that do not match current URI
   // ex: if `/images`, then 'Images' result filter should not be displayed
@@ -17,7 +83,20 @@ const HomeSearchFilters = () => {
   // TAILWIND GRADIENT
   // [mask-image:linear-gradient(to_bottom,white_60%,transparent)]
   return (
-    <div className='overflow-x-scroll'>
+    <div className='overflow-x-scroll relative' ref={parentRef}>
+      <div className={`absolute h-full w-[65%] max-w-5xl mx-auto flex items-center justify-end`}>
+        {showLeftArrow && (
+                  <button onClick={handleScrollLeft} className='border sticky border-[hsla(0,0%,51%,0.56)] z-[99999] text-4xl flex justify-center items-center bg-[#121212a9] rounded-full backdrop-blur-sm text-[#eae8ed] w-12 h-12'>
+                  <AiOutlineArrowLeft />
+                </button>
+        )}
+
+          {showRightArrow && (
+                    <button onClick={handleScrollRight} className='border relative border-[hsla(0,0%,51%,0.56)] z-[99999] text-4xl flex justify-center items-center bg-[#121212a9] rounded-full backdrop-blur-sm text-[#eae8ed] w-12 h-12'>
+                    <AiOutlineArrowRight />
+                  </button>
+          )}
+      </div>
       <div className='hidden h-[200px] max-h-[200px] flex-grow mt-4 md:flex gap-x-6 text-[#eae8ed] leading-[1.08349] tracking-[-0.003em] text-3xl'>
         {dynamicSearchFilters.map((item: SearchFilter) => {
           const ItemIcon = item.Icon;

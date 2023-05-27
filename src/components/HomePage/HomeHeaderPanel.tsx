@@ -23,9 +23,9 @@ const HomeHeaderPanel = () => {
             role='button'
             onClick={openAboutPage}
             aria-label='See how ViewPoint works'
-            className='rounded-full hidden md:flex decoration-none cursor-pointer transition hover:scale-[1.02] hover:shadow-2xl text-sm focus:outline-none bg-[#121212] dark:bg-[#303032] leading-[1.42859] font-normal tracking-[-0.016em] px-4 py-2 items-center gap-x-2'>
+            className='rounded-full hidden md:flex decoration-none cursor-pointer transition hover:scale-[1.02] hover:shadow-2xl text-sm focus:outline-none bg-[#121212] dark:bg-[#303032] leading-[1.42859] font-normal tracking-[-0.016em] pl-2 pr-4 py-2 items-center gap-x-[0.2rem]'>
             <span className='select-none'>
-                <Image src='/assets/incognito-light.png' alt='Incognito Logo' height={10} width={15} />
+                <Image src='/assets/mask-logo-light.png' alt='Incognito Logo' height={30} width={35} />
             </span>
             <span className='text-[#EAE8ED] select-none'>How it works</span>
         </button>

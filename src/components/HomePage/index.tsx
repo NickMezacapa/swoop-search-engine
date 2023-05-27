@@ -30,7 +30,7 @@ const HomePage = ({ variant }: HomePageProps) => {
                 )}
                 <SearchFormPrimary />
                 <HomeSuggestions />
-                <div className='hidden md:block w-[160%]'>
+                <div className='hidden md:block w-[160%] relative'>
                     <h1 className='font-semibold leading-[1.08349] tracking-[-0.003em] text-[#6e6e73] text-2xl mt-[3.5rem] mb-[1rem]'>Filter Results</h1>
                     <HomeSearchFilters />
                 </div>
