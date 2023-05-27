@@ -5,7 +5,7 @@ import { useCheckMounted } from '@hooks/useCheckMounted';
 const dynamicImageControl = (currentTheme: string) => {
     if (currentTheme === 'dark') {
       return (
-        <Image src="/assets/mask-logo.png" alt="Incognito Logo" height={40} width={65} priority />
+        <Image src="/assets/mask-logo-light.png" alt="Incognito Logo" height={90} width={125} priority />
        /*  <Image src="/assets/incognito-light.png" alt="Incognito Logo" height={40} width={65} priority /> */
       );
     } else {
