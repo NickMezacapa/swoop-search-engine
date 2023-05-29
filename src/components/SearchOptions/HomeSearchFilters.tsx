@@ -69,12 +69,12 @@ const HomeSearchFilters = () => {
     <div className='overflow-x-scroll relative' ref={parentRef}>
       <div className={`absolute h-full w-[65%] max-w-5xl mx-auto flex items-center justify-end`}>
         {showLeftArrow && (
-                  <button onClick={handleScrollLeft} className='border sticky border-[hsla(0,0%,51%,0.56)] z-[99999] text-4xl flex justify-center items-center bg-[#121212a9] rounded-full backdrop-blur-sm text-[#eae8ed] w-12 h-12'>
+                  <button onClick={handleScrollLeft} className='border focus:outline-none sticky border-[hsla(0,0%,51%,0.56)] z-[99999] text-4xl flex justify-center items-center bg-[#121212a9] rounded-full backdrop-blur-sm text-[#eae8ed] w-12 h-12'>
                   <AiOutlineArrowLeft />
                 </button>
         )}
         {showRightArrow && (
-                  <button onClick={handleScrollRight} className='border relative border-[hsla(0,0%,51%,0.56)] z-[99999] text-4xl flex justify-center items-center bg-[#121212a9] rounded-full backdrop-blur-sm text-[#eae8ed] w-12 h-12'>
+                  <button onClick={handleScrollRight} className='border focus:outline-none relative border-[hsla(0,0%,51%,0.56)] z-[99999] text-4xl flex justify-center items-center bg-[#121212a9] rounded-full backdrop-blur-sm text-[#eae8ed] w-12 h-12'>
                   <AiOutlineArrowRight />
                 </button>
         )}
