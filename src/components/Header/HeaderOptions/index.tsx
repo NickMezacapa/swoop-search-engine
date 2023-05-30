@@ -17,7 +17,7 @@ const HeaderOptions = ({ active, callBack }: HeaderOptionsProps) => {
     const [hoveredOptionIndex, setHoveredOptionIndex] = useState<number | null>(null);
 
   return (
-    <section className='flex w-full text-gray-400 justify-start mb-2 pl-12 mt-4 text-sm lg:space-x-36'>
+    <section className='flex w-full text-gray-400 justify-start mb-2 pl-12 mt-4 text-base lg:space-x-36'>
         <div className='flex space-x-6'>
             {HEADER_OPTION_LINKS.map((link: HeaderOptionLink, index: number) => {
                 return (
