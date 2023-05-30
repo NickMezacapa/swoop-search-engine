@@ -74,7 +74,7 @@ const SearchResults = ({ searchResults }: SearchResultsProps) => {
                         </h1>
 
                     </div>
-                    {
+                    {!!searchResults.infoboxes &&
                         searchResults.infoboxes.map((source: InfoBox) => {
                             return (
                                 <div 
