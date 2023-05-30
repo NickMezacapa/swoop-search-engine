@@ -53,9 +53,9 @@ const SearchResults = ({ searchResults }: SearchResultsProps) => {
                             return (
                                 <div 
                                     key={result.url}
-                                    className='bg-[#EAE8ED] cursor-pointer transition hover:scale-[0.99] shadow-md mb-8 text-[#1d1d1f] dark:bg-[#39393cb1] dark:text-[#eae8ed] flex flex-col space-y-2 rounded-lg p-2'>
+                                    className='bg-[#EAE8ED] cursor-pointer overflow-hidden transition hover:scale-[0.99] shadow-md mb-8 text-[#1d1d1f] dark:bg-[#39393cb1] dark:text-[#eae8ed] flex flex-col space-y-2 rounded-lg p-2'>
                                     <div className='group'>
-                                        <a href={result.url} className='text-sm text-[#5b5b5dba] dark:text-gray-500'>{result.url}</a>
+                                        <a href={result.url} className='text-sm text-[#5b5b5dba] dark:text-gray-500 line-clamp-1'>{result.pretty_url}</a>
                                         <a href={result.url}>
                                             <h1 className='text-xl text-blue-400 truncate group-hover:underline'>{result.title}</h1>
                                         </a>
@@ -66,7 +66,7 @@ const SearchResults = ({ searchResults }: SearchResultsProps) => {
                         })
                     }
                 </div>
-                <div className='w-[40%] max-h-[400px] hidden md:flex flex-col'>
+                <div className='w-[40%] max-h-[400px] hidden md:flex flex-col pr-4'>
                     <div className='max-w-[400px]'>
                         <h1 className='flex items-center border-b py-2'>
                             <DynamicLogo height={40} width={65} />
