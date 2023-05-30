@@ -19,7 +19,7 @@ const HomePage = ({ variant }: HomePageProps) => {
             <div className='w-full h-full px-10'>
                 <HomeHeader />
                 <div className='text-[#1d1d1f] mt-[6rem] ml-[-1rem] dark:text-[#EAE8ED] font-semibold leading-[1.08349] tracking-[-0.003em] text-[2.8rem] sm:text-6xl flex gap-x-4 items-center select-none'>
-                    <DynamicLogo />
+                    <DynamicLogo width={125} height={90} />
                     <h1 className='ml-[-2rem] tracking-tight'>
                         <span>swoop </span>
                         <span className='hidden sm:inline-flex'>search</span>
