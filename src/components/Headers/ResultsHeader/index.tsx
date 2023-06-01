@@ -37,7 +37,7 @@ const ResultsHeader = ({ pathname }: ResultsHeaderProps) => {
                 <DynamicLogo height={40} width={100} />
                 <span className='text-2xl font-semibold'>{pathname}</span>
             </div>
-            <FiSettings onClick={toggleSettingsModal} className='ml-auto text-[#6e6e73] dark:text-[#EAE8ED] h-8 hidden sm:inline-flex cursor-pointer transition duration=100 transform hover:scale-110' />
+            <FiSettings onClick={toggleSettingsModal} className='ml-auto text-[#6e6e73] mr-2 dark:text-[#EAE8ED] h-8 cursor-pointer transition duration-100 transform hover:scale-110' />
             {showSettingsModal && <SettingsModal callBack={toggleSettingsModal} />}
         </div>
         <SearchFormSecondary />
