@@ -10,13 +10,11 @@ interface DynamicLogoProps {
 const dynamicImageControl = (currentTheme: string, width: number, height: number) => {
     if (currentTheme === 'dark') {
       return (
-        <Image src="/assets/mask-logo-light.png" alt="Incognito Logo" height={height} width={width} priority />
-       /*  <Image src="/assets/incognito-light.png" alt="Incognito Logo" height={40} width={65} priority /> */
+        <Image src="/assets/mask-logo-light.png" alt="Incognito Logo" height={height} width={width} loading='eager' priority />
       );
     } else {
       return (
-        <Image src="/assets/mask-logo.png" alt="Incognito Logo" height={height} width={width} priority />
-        /* <Image src="/assets/incognito-icon.png" alt="Incognito Logo" height={40} width={65} priority /> */
+        <Image src="/assets/mask-logo.png" alt="Incognito Logo" height={height} width={width} loading='eager' priority />
       );
     }
   };

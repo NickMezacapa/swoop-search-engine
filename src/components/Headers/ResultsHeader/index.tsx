@@ -3,22 +3,39 @@ import { useRouter } from 'next/router';
 
 import { FiSettings } from 'react-icons/fi';
 
+import { useSearchFilterState } from '@contexts/SearchFilterProvider';
+
 import SearchFormSecondary from '@components/SearchForm/Secondary';
 import HeaderOptions from '@components/Header/HeaderOptions';
 import SettingsModal from '@components/Settings/SettingsModal';
 import DynamicLogo from '@components/HomePage/DynamicLogo';
+
+import { handleRouting } from '@utils/helpers/handleRouting';
 
 interface ResultsHeaderProps {
     pathname?: string;
 }
 
 const ResultsHeader = ({ pathname }: ResultsHeaderProps) => {
-    const [activeHeaderOption, setActiveHeaderOption] = useState('All');
-    const [showSettingsModal, setShowSettingsModal] = useState(false);
     const router = useRouter();
+    const query = JSON.stringify(router.query.q).replace(/\"/g, "");
+
+    const { filterOption } = useSearchFilterState();
+
+    const pathTitle = pathname === 'search' 
+        ? 'All' 
+        : pathname!.charAt(0).toUpperCase() + pathname!.slice(1);
+        
+    const [activeHeaderOption, setActiveHeaderOption] = useState(pathTitle);
+    const [showSettingsModal, setShowSettingsModal] = useState(false);
 
     const handleHeaderOptionBtnClick = (title: string) => {
+        const searchType = title === 'All'
+        ? 'search'
+        : title.charAt(0).toLowerCase() + title.slice(1);
+        
         setActiveHeaderOption(title);
+        handleRouting(router, query, searchType, 1, filterOption)
     };
 
     const toggleSettingsModal = () => {

@@ -1,5 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+import ImagesPreview from './ImagesPreview';
+import InfoboxPreview from './InfoboxPreview';
 import DynamicLogo from '@components/HomePage/DynamicLogo';
 
 interface SearchData {
@@ -17,25 +21,10 @@ interface SearchResult {
 }
 interface SearchResultsProps {
     searchResults: SearchData;
+    imageResults: any;
 }
 
-interface InfoBoxUrl {
-    title: string;
-    url: string;
-}
-interface InfoBox {
-    infobox: string;
-    id: string;
-    content: string;
-    img_src: string;
-    urls: InfoBoxUrl[];
-    [key: string]: any;
-}
-interface InfoboxProps {
-    source: InfoBox[];
-}
-
-const SearchResults = ({ searchResults }: SearchResultsProps) => {
+const SearchResults = ({ searchResults, imageResults }: SearchResultsProps) => {
     const [numResults, setNumResults] = useState<string | null>(null);
 
     useEffect(() => {
@@ -52,14 +41,14 @@ const SearchResults = ({ searchResults }: SearchResultsProps) => {
                         searchResults.results.map((result: SearchResult) => {
                             return (
                                 <div 
-                                    key={result.url}
+                                    key={`${uuidv4()}`}
                                     className='bg-[#EAE8ED] cursor-pointer overflow-hidden transition hover:scale-[0.99] shadow-md mb-8 text-[#1d1d1f] dark:bg-[#39393cb1] dark:text-[#eae8ed] flex flex-col space-y-2 rounded-lg p-2'>
                                     <div className='group'>
-                                        <a href={result.url} className='text-sm text-[#5b5b5dba] dark:text-gray-500 line-clamp-1'>{result.pretty_url}</a>
+                                        <a href={result.url} className='text-xs text-blue-400 line-clamp-1'>{result.pretty_url}</a>
                                         <a href={result.url}>
-                                            <h1 className='text-xl text-blue-400 truncate group-hover:underline'>{result.title}</h1>
+                                            <h1 className='text-xl text-[#1d1d1f] dark:text-[#eae8ed] truncate group-hover:underline my-2'>{result.title}</h1>
                                         </a>
-                                        <p className='text-sm cursor-pointer text-[#1d1d1fba] dark:text-gray-500 line-clamp-3'>{result.content}</p>
+                                        <p className='text-sm cursor-pointer text-[#1d1d1fba] dark:text-gray-400 line-clamp-3'>{result.content}</p>
                                     </div>
                                 </div>
                             );
@@ -72,30 +61,9 @@ const SearchResults = ({ searchResults }: SearchResultsProps) => {
                             <DynamicLogo height={40} width={65} />
                             <span>images</span>
                         </h1>
-
+                        <ImagesPreview imageResults={imageResults} />
                     </div>
-                    {!!searchResults.infoboxes &&
-                        searchResults.infoboxes.map((source: InfoBox) => {
-                            return (
-                                <div 
-                                    key={source.id}
-                                    onClick={() => window.open(source.urls[0].url)}
-                                    className='bg-[#EAE8ED] cursor-pointer transition hover:scale-[0.99] border border-[hsla(0,0%,51%,0.16)] shadow-md mb-4 text-[#1d1d1f] dark:bg-[#39393cb1] dark:text-[#eae8ed] p-2 rounded-lg flex flex-col w-full max-w-[400px]'>
-                                    <h1 className='text-xl'>{source.infobox}</h1>
-                                    <img src={source.img_src} alt={source.infobox} className='w-1/2 h-1/2 mt-2 object-contain' />
-                                    <p className='text-sm text-[#1d1d1fba] mt-4 dark:text-gray-500 line-clamp-4'>{source.content}</p>
-                                    {source.urls.map((url: InfoBoxUrl, index: number) => {
-                                        return (
-                                            <p key={index} className='text-sm mt-2'>
-                                                <span>{url.title} - </span>
-                                                <a href={url.url} className='text-blue-500'>{url.url}</a>
-                                            </p>
-                                        );
-                                    })}
-                                </div>
-                            );
-                        })
-                    }
+                    <InfoboxPreview searchResults={searchResults} />
                 </div>
             </div>  
         </div>

@@ -34,6 +34,7 @@
     "@trpc/next": "^10.27.1",
     "@trpc/react-query": "^10.27.1",
     "@trpc/server": "^10.27.1",
+    "@types/uuid": "^9.0.1",
     "axios": ">=0.18",
     "cheerio": "^1.0.0-rc.12",
     "clsx": "^1.2.1",
@@ -46,6 +47,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "superjson": "^1.12.3",
+    "uuid": "^9.0.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {

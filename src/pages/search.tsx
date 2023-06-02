@@ -6,9 +6,10 @@ import ResultsHeader from '@components/Headers/ResultsHeader';
 import SearchResults from '@components/ResultPages/Search/SearchResults';
 
 import { fetchSearchResults } from '@utils/helpers/fetchSearchResults';
+import mockedImages from '@utils/dummyData/CatsImages';
 import mockedResults from '@utils/dummyData/Cats';
 
-const Search = ({ searchResults }: any, num: number) => {
+const Search = ({ searchResults, imageResults }: any, num: number) => {
   const router = useRouter();
 
   let path: string = '';
@@ -33,7 +34,7 @@ const Search = ({ searchResults }: any, num: number) => {
           <meta name="theme-color" content="#000000" />
         </Head>
         <ResultsHeader pathname={router.pathname.replace(/^./, "")} />
-        <SearchResults searchResults={searchResults} />
+        <SearchResults searchResults={searchResults} imageResults={imageResults} />
     </section>
   )
 }
@@ -63,9 +64,14 @@ export const getServerSideProps = async (context: any) => {
     ? mockedResults
     : await fetchSearchResults(query, safeSearchValue, startIndex);
 
+    const imageData = useDummyData
+      ? mockedImages
+      : await fetchSearchResults(query, safeSearchValue, startIndex, true);
+
   return {
     props: {
-      searchResults: searchData, 
+      searchResults: searchData,
+      imageResults: imageData,
     },
   }
 };
