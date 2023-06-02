@@ -8,8 +8,7 @@ import SearchResults from '@components/ResultPages/Search/SearchResults';
 import { fetchSearchResults } from '@utils/helpers/fetchSearchResults';
 import mockedResults from '@utils/dummyData/Cats';
 
-const Search = ({ searchResults }: any) => {
-  // console.log(searchResults)
+const Search = ({ searchResults }: any, num: number) => {
   const router = useRouter();
 
   let path: string = '';
@@ -45,14 +44,28 @@ export const getServerSideProps = async (context: any) => {
   const useDummyData = true;
   const query = context.query.q;
   const startIndex = context.query.pageno ?? 1;
+  const filterOption = context.query.safesearch ?? 0;
+ 
+  let safeSearchValue = 0;
+  switch (filterOption) {
+    case 'Mid':
+      safeSearchValue = 1;
+      break;
+    case 'Strict':
+      safeSearchValue = 2;
+      break;
+    default:
+      safeSearchValue = 0;
+      break;
+  }
 
   const searchData = useDummyData 
     ? mockedResults
-    : await fetchSearchResults(query, startIndex);
+    : await fetchSearchResults(query, safeSearchValue, startIndex);
 
   return {
     props: {
-      searchResults: searchData
+      searchResults: searchData, 
     },
   }
 };

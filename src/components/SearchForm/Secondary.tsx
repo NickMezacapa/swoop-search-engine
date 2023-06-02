@@ -3,20 +3,22 @@ import { useRouter } from 'next/router';
 
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 
+import { useSearchFilterState } from '@contexts/SearchFilterProvider';
 import useSearchQueryValue from '@hooks/useSearchQueryValue';
 import { handleRouting } from '@utils/helpers/handleRouting';
 
 const SearchFormSecondary = () => {
     const [showCloseIcon, setShowCloseIcon] = useState('inline-flex');
-    const { value: searchQuery, bind: bindSearchQuery, reset: resetSearchQuery } = useSearchQueryValue('');
     const searchQueryRef = useRef<HTMLInputElement | null>(null);
     const router = useRouter();
     let path = router.pathname === '/' ? '/search' : router.pathname;
+    const { value: searchQuery, bind: bindSearchQuery, reset: resetSearchQuery } = useSearchQueryValue(JSON.stringify(router.query.q).replace(/\"/g, ""));
+    const { filterOption } = useSearchFilterState();
 
     const handleSearchFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!searchQuery) return;
-        handleRouting(router, searchQuery, path);
+        handleRouting(router, searchQuery, path, 1, filterOption);
     };
 
     useEffect(() => {
