@@ -1,46 +1,84 @@
 import { useEffect, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
 
-import useAxios from '@hooks/useAxios';
-import { useParseHtml } from '@hooks/useParseHtml';
-import { type SearchResult } from '@hooks/useParseHtml';
+import { useSearchFilterState } from '@contexts/SearchFilterProvider';
 
-const BASE_SEARCH_URL = 'https://api.swoopsearch.dev/search';
+const BASE_SEARCH_API_URL = process.env.BASE_SEARCH_API_URL!;
 
-/**
- * @name useGetSearchResults
- * @description custom hook to get the search results based on a query.
- * 
- * @param {string} query - the search query
- * @returns {SearchResult[]} searchResults - the array of search results
- * 
- * @example
- * const query = 'foo';
- * const searchResults = useGetSearchResults(query);
- * console.log(searchResults);    // array of search results - [{...}, {...}, ...]
- */
+type SearchRequestConfig = {
+    query: string;
+    pageno?: number;
+    forImages?: boolean;
+}
 
-export const useGetSearchResults = (query: string): SearchResult[] => {
-    const [responseHTML, setResponseHTML] = useState<string>('');
+interface SearchParams {
+    [key: string]: string | number;
+}
+interface SearchResult {
+    title: string;
+    url: string;
+    content: string;
+    [key: string]: any;
+}
+interface SearchData {
+    query: string;
+    number_of_results: number;
+    results: SearchResult[];
+    suggestions: string[];
+    [key: string]: any;
+}
 
-    // config for making the request
-    const requestConfig = {
-        url: BASE_SEARCH_URL,
-        params: {
-            q: query,
-        },
+export const useGetSearchResults = ({ query, pageno, forImages }: SearchRequestConfig) => {
+    const [searchResults, setSearchResults] = useState<SearchData | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const { filterOption } = useSearchFilterState() || {}; // search filters - user option. Optional chaining for undef value
+    const useDummyData = true; // control for rate limiting during development
+
+    let safeSearchValue = 0;
+
+    // switch string filter value to number for search api usage
+    switch (filterOption) {
+        case 'Mid':
+            safeSearchValue = 1;
+            break;
+        case 'Strict':
+            safeSearchValue = 2;
+            break;
+        default:
+            safeSearchValue = 0;
+            break;
     }
-    // array of deps. that trigger the request on change
-    const dependencies = [query];
 
-    // useAxios hook - execute GET req. from given config
-    const [response, controls] = useAxios(requestConfig, dependencies);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setIsLoading(true);
+                const params: SearchParams = {
+                    q: query,
+                    format: 'json',
+                    pageno: pageno ?? 1,
+                    safesearch: safeSearchValue ?? 0,
+                };
 
-    if (response.type === 'success') {
-        setResponseHTML(response.data);
-    }
+                if (forImages) params.category_images = 'on';
 
-    // useParseHtml hook - parse html and extract information
-    const searchResults = useParseHtml(responseHTML);
+                const response: AxiosResponse<string> = await axios.get<string>(
+                    BASE_SEARCH_API_URL,
+                    { params }
+                );
 
-    return searchResults;
+                const searchResultData: SearchData = JSON.parse(response.data);
+                setSearchResults(searchResultData);
+            } catch (error) {
+                console.log('🅱️ ERROR FETCHING RESULTS!', error);
+                setSearchResults(null);
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [query, safeSearchValue, pageno, forImages, useDummyData]);
+
+    return { searchResults, isLoading };
 };

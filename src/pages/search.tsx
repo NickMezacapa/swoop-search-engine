@@ -5,13 +5,16 @@ import DefaultHome from '@components/DefaultPage/DefaultHome';
 import ResultsHeader from '@components/Headers/ResultsHeader';
 import SearchResults from '@components/ResultPages/Search/SearchResults';
 
-import { fetchSearchResults } from '@utils/helpers/fetchSearchResults';
-import mockedImages from '@utils/dummyData/CatsImages';
-import mockedResults from '@utils/dummyData/Cats';
 
-const Search = ({ searchResults, imageResults }: any, num: number) => {
+
+import { fetchSearchResults } from '@utils/helpers/fetchSearchResults';
+import mockedImages from '@constants/dummyData/CatsImages';
+import mockedResults from '@constants/dummyData/Cats';
+
+const Search = ({ searchResults, imageResults }: any) => {
   const router = useRouter();
 
+  // ensure there is a search query, else display homepage with variant
   let path: string = '';
   if (router.pathname !== '/search') path = router.pathname;
   if (!router.query.q) return <DefaultHome variant={path} />;

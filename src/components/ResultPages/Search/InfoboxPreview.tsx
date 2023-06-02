@@ -1,19 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { v4 as uuidv4 } from 'uuid';
 
-interface SearchResult {
-    title: string;
-    url: string;
-    content: string;
-    [key: string]: any;
-}
-interface SearchData {
-    query: string;
-    number_of_results: number;
-    results: SearchResult[];
-    suggestions: string[];
-    [key: string]: any;
-}
 interface InfoBoxUrl {
     title: string;
     url: string;
@@ -27,7 +14,7 @@ interface InfoBox {
     [key: string]: any;
 }
 interface InfoboxPreviewProps {
-    searchResults: SearchData;
+    searchResults: any;
 }
 
 const InfoboxPreview = ({ searchResults }: InfoboxPreviewProps) => {
@@ -47,7 +34,7 @@ const InfoboxPreview = ({ searchResults }: InfoboxPreviewProps) => {
                                 return (
                                     <p key={index} className='text-sm mt-2'>
                                         <span>{url.title} - </span>
-                                        <a href={url.url} className='text-blue-500'>{url.url}</a>
+                                        <a href={url.url} className='text-blue-400'>{url.url}</a>
                                     </p>
                                 );
                             })}

@@ -5,12 +5,13 @@ import { createTRPCRouter, publicProcedure } from "@server/api/trpc";
 import { fetchSearchResults } from '@utils/helpers/fetchSearchResults';
 import { fetchImageResults } from '@utils/helpers/fetchImageResults';
 
-export const searchRouter = createTRPCRouter({
+const searchRouter = createTRPCRouter({
     swoopSearch: publicProcedure
         .input(z.object({ query: z.string() }))
         .query(async ({ input }) => {
+            const searchResults = await fetchSearchResults(input.query)
             return {
-                items: await fetchSearchResults(input.query),
+                items: searchResults,
             };
         }),
     imageSearch: publicProcedure
@@ -22,6 +23,8 @@ export const searchRouter = createTRPCRouter({
             }
         }),
 });
+
+export { searchRouter };
 
 // const searchResults = api.search.swoopSearch.useQuery({ query: 'dogs' });
 // {JSON.stringify(searchResults?.data?.items)}

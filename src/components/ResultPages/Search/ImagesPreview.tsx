@@ -10,7 +10,7 @@ interface ImagesPreviewProps {
     imageResults: any;
 }
 
-const ImagesPreview = ({imageResults}: ImagesPreviewProps) => {
+const ImagesPreview = ({ imageResults }: ImagesPreviewProps) => {
     const router = useRouter();
     const query = JSON.stringify(router.query.q).replace(/\"/g, "");
     const handleImageReroute = () => {
