@@ -40,8 +40,19 @@ interface ImageData {
     [key: string]: any;
 }
 
-//const BASE_SEARCH_API_URL = process.env.BASE_SEARCH_API_URL!;
-
+/**
+ * @name useGetSearchResults
+ * @description custom hook to fetch search results per query and user options
+ * 
+ * @param {string} query - the search query
+ * @param {boolean} forImages - indicates whether the search should return image results or not, returns images when true
+ * @returns {{ loading: boolean, error: string | null, data: SearchData | ImageData | null }} - Obj containing loading
+ * state, potential error message, and the fetched data
+ * 
+ * @example
+ * const forImages = true;
+ * const { loading, error, data } = useGetSearchResults(query, !forImages);
+ */
 export const useGetSearchResults = (query: string, forImages: boolean) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
