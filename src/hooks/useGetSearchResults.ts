@@ -1,19 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
-
 import { useSearchFilterState } from '@contexts/SearchFilterProvider';
 
-const BASE_SEARCH_API_URL = process.env.BASE_SEARCH_API_URL!;
-
-type SearchRequestConfig = {
-    query: string;
-    pageno?: number;
-    forImages?: boolean;
-}
-
-interface SearchParams {
-    [key: string]: string | number;
-}
 interface SearchResult {
     title: string;
     url: string;
@@ -27,13 +15,38 @@ interface SearchData {
     suggestions: string[];
     [key: string]: any;
 }
+interface ImageResult {
+    template?: string;
+    url?: string;
+    thumbnail_src?: string;
+    img_src?: string;
+    content?: string;
+    title?: string;
+    source?: string;
+    img_format?: string;
+    engine?: string;
+    parsed_url?: string[],
+    engines?: string[],
+    positions?: number[],
+    score?: number;
+    category?: string;
+    pretty_url?: string;
+    [key: string]: any;
+}
+interface ImageData {
+    query?: string;
+    number_of_results?: number;
+    results?: ImageResult[];
+    [key: string]: any;
+}
 
-export const useGetSearchResults = ({ query, pageno, forImages }: SearchRequestConfig) => {
-    const [searchResults, setSearchResults] = useState<SearchData | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+//const BASE_SEARCH_API_URL = process.env.BASE_SEARCH_API_URL!;
 
-    const { filterOption } = useSearchFilterState() || {}; // search filters - user option. Optional chaining for undef value
-    const useDummyData = true; // control for rate limiting during development
+export const useGetSearchResults = (query: string, forImages: boolean) => {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const [data, setData] = useState<SearchData | ImageData | null>(null);
+    const { filterOption } = useSearchFilterState(); // search filter option - user setting
 
     let safeSearchValue = 0;
 
@@ -52,33 +65,26 @@ export const useGetSearchResults = ({ query, pageno, forImages }: SearchRequestC
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
+            setError(null);
+            setData(null);
             try {
-                setIsLoading(true);
-                const params: SearchParams = {
-                    q: query,
-                    format: 'json',
-                    pageno: pageno ?? 1,
-                    safesearch: safeSearchValue ?? 0,
-                };
-
-                if (forImages) params.category_images = 'on';
-
-                const response: AxiosResponse<string> = await axios.get<string>(
-                    BASE_SEARCH_API_URL,
-                    { params }
-                );
-
-                const searchResultData: SearchData = JSON.parse(response.data);
-                setSearchResults(searchResultData);
+                let requestUrl = `https://api.swoopsearch.dev/search?q=${query}&language=en&safesearch=${safeSearchValue}&format=json`;
+                if (forImages) {
+                    requestUrl += '&category_images=on'
+                }
+                const response: AxiosResponse = await axios.get(requestUrl);
+                const responseData = response.data;
+                setData(responseData)
             } catch (error) {
-                console.log('🅱️ ERROR FETCHING RESULTS!', error);
-                setSearchResults(null);
-                setIsLoading(false);
+                setError(`🅱️ ERROR FETCHING RESULTS! Message: ${error}. 🅱️`)
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchData();
-    }, [query, safeSearchValue, pageno, forImages, useDummyData]);
+    }, [query, forImages, safeSearchValue]);
 
-    return { searchResults, isLoading };
+    return { loading, error, data };
 };

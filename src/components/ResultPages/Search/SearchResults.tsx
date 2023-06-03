@@ -4,27 +4,16 @@ import InfoboxPreview from './InfoboxPreview';
 import ResultLinks from './ResultLinks';
 
 import DynamicLogo from '@components/HomePage/DynamicLogo';
+import { useGetSearchResults } from '@hooks/useGetSearchResults';
 
-interface SearchData {
-    query: string;
-    number_of_results: number;
-    results: SearchResult[];
-    suggestions: string[];
-    [key: string]: any;
-}
-interface SearchResult {
-    title: string;
-    url: string;
-    content: string;
-    [key: string]: any;
-}
 interface SearchResultsProps {
-    searchResults: SearchData;
-    imageResults: any;
+    query: string;
 }
 
-const SearchResults = ({ searchResults, imageResults }: SearchResultsProps) => {
+const SearchResults = ({ query }: SearchResultsProps) => {
     const [numResults, setNumResults] = useState<string | null>(null);
+    const forImages = false;
+    const { loading, error, data } = useGetSearchResults(query, forImages);
 
     useEffect(() => {
         const rand = Math.floor(Math.random() * (3500000 - 2000000 + 1)) + 2000000;
@@ -35,16 +24,16 @@ const SearchResults = ({ searchResults, imageResults }: SearchResultsProps) => {
         <div className='w-full flex flex-col mx-auto pl-6 sm:pl-12 pt-6 pr-3'>
             <p className='text-[#1d1d1f56] dark:text-gray-500 text-sm'>About {numResults} results</p>
             <div className='w-full mt-4 text-[#1d1d1f] dark:text-[#eae8ed] flex justify-between max-w-[1500px]'>
-                <ResultLinks searchResults={searchResults} />
+                <ResultLinks query={query} />
                 <div className='w-[40%] max-h-[400px] hidden md:flex flex-col pr-4'>
                     <div className='max-w-[400px]'>
                         <h1 className='flex items-center border-b py-2'>
                             <DynamicLogo height={40} width={65} />
                             <span>images</span>
                         </h1>
-                        <ImagesPreview imageResults={imageResults} />
+                        <ImagesPreview query={query} />
                     </div>
-                    <InfoboxPreview searchResults={searchResults} />
+                    <InfoboxPreview searchResults={data} />
                 </div>
             </div>  
         </div>

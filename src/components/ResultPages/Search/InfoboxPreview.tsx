@@ -20,8 +20,8 @@ interface InfoboxPreviewProps {
 const InfoboxPreview = ({ searchResults }: InfoboxPreviewProps) => {
     return (
         <div>
-            {!!searchResults.infoboxes &&
-                searchResults.infoboxes.map((source: InfoBox) => {
+            {!!searchResults?.infoboxes &&
+                searchResults?.infoboxes?.map((source: InfoBox) => {
                     return (
                         <div 
                             key={`${uuidv4()}`}

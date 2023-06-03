@@ -1,31 +1,25 @@
-import { v4 as uuidv4 } from 'uuid';
 import { motion } from 'framer-motion';
+import { useGetSearchResults } from '@hooks/useGetSearchResults';
 
-interface SearchData {
-    query: string;
-    number_of_results: number;
-    results: SearchResult[];
-    suggestions: string[];
-    [key: string]: any;
-}
-interface SearchResult {
-    title: string;
-    url: string;
-    content: string;
-    [key: string]: any;
-}
 interface ResultLinksProps {
-    searchResults: SearchData;
+    query: string;
 }
 
-const ResultLinks = ({ searchResults }: ResultLinksProps) => {
+const ResultLinks = ({ query }: ResultLinksProps) => {
+    const { loading, error, data } = useGetSearchResults(query, false);
+    if (loading) {
+        return <div className='text-5xl text-[#1d1d1f]'>Loading...</div>
+    } 
+    if (!data) {
+        return <p>No results found.</p>
+    }
   return (
     <div className='w-full md:w-[50%] py-2 pr-2'>
     {
-        searchResults.results.map((result: SearchResult, index: number) => {
+        data?.results?.map((result: any, index: number) => {
             return (
                 <motion.div 
-                    key={`${uuidv4()}`}
+                    key={result.url}
                     initial={{
                         x: '-60%',
                         opacity: 0,
@@ -35,9 +29,9 @@ const ResultLinks = ({ searchResults }: ResultLinksProps) => {
                         opacity: 1,
                     }}
                     transition={{
-                        duration: 0.3,
+                        duration: 0.25,
                         ease: 'linear',
-                        delay: index * 0.25
+                        delay: index * 0.15
                     }}
                     className='bg-[#EAE8ED] cursor-pointer overflow-hidden transition hover:scale-[0.99] shadow-md mb-8 text-[#1d1d1f] dark:bg-[#39393cb1] dark:text-[#eae8ed] flex flex-col space-y-2 rounded-lg p-2'>
                     <div className='group'>
