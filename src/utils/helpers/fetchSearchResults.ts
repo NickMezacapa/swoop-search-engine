@@ -12,6 +12,7 @@ export const fetchSearchResults = async (query: string, safeSearchValue?: number
             q: query,
             format: 'json',
             pageno: pageno ?? 1,
+            language: 'en',
             safesearch: safeSearchValue ?? 0,
         };
 

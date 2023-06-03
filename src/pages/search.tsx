@@ -5,15 +5,13 @@ import DefaultHome from '@components/DefaultPage/DefaultHome';
 import ResultsHeader from '@components/Headers/ResultsHeader';
 import SearchResults from '@components/ResultPages/Search/SearchResults';
 
-
-
 import { fetchSearchResults } from '@utils/helpers/fetchSearchResults';
 import mockedImages from '@constants/dummyData/CatsImages';
 import mockedResults from '@constants/dummyData/Cats';
 
 const Search = ({ searchResults, imageResults }: any) => {
   const router = useRouter();
-
+  
   // ensure there is a search query, else display homepage with variant
   let path: string = '';
   if (router.pathname !== '/search') path = router.pathname;
@@ -45,7 +43,7 @@ const Search = ({ searchResults, imageResults }: any) => {
 export default Search;
 
 export const getServerSideProps = async (context: any) => {
-  const useDummyData = true;
+  const useDummyData = false;
   const query = context.query.q;
   const startIndex = context.query.pageno ?? 1;
   const filterOption = context.query.safesearch ?? 0;

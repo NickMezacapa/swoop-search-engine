@@ -1,6 +1,6 @@
 import { type AppType } from 'next/app';
 import { type AppProps } from 'next/app';
-import { Space_Grotesk } from 'next/font/google'
+import { Space_Grotesk } from 'next/font/google';
 import { DefaultSeo } from 'next-seo';
 
 import { SearchFilterProvider } from '@contexts/SearchFilterProvider';
@@ -15,15 +15,18 @@ const spaceGt = Space_Grotesk({ subsets: ['latin'] })
 const MyApp: AppType = ({
 	Component,
 	pageProps: { ...pageProps },
-}: AppProps) => (
-	<SearchFilterProvider>
-		<ThemeLayout>
-			<DefaultSeo {...SeoConfig} />
-			<main className={spaceGt.className}>
-				<Component {...pageProps} />
-			</main>
-		</ThemeLayout>
-	</SearchFilterProvider>
-);
+}: AppProps) => {
+
+	return (
+		<SearchFilterProvider>
+			<ThemeLayout>
+				<DefaultSeo {...SeoConfig} />
+				<main className={spaceGt.className}>
+					<Component {...pageProps} />
+				</main>
+			</ThemeLayout>
+		</SearchFilterProvider>
+	)
+};
 
 export default api.withTRPC(MyApp);

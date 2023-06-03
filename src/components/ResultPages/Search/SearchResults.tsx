@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-
 import ImagesPreview from './ImagesPreview';
 import InfoboxPreview from './InfoboxPreview';
 import ResultLinks from './ResultLinks';
 
 import DynamicLogo from '@components/HomePage/DynamicLogo';
-
 
 interface SearchData {
     query: string;
@@ -50,7 +48,6 @@ const SearchResults = ({ searchResults, imageResults }: SearchResultsProps) => {
                 </div>
             </div>  
         </div>
-
     );
 };
 

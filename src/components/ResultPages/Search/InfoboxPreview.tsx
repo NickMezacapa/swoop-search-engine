@@ -26,7 +26,7 @@ const InfoboxPreview = ({ searchResults }: InfoboxPreviewProps) => {
                         <div 
                             key={`${uuidv4()}`}
                             onClick={() => window.open(source.urls[0].url)}
-                            className='bg-[#EAE8ED] cursor-pointer transition hover:scale-[0.99] border border-[hsla(0,0%,51%,0.16)] shadow-md mb-4 text-[#1d1d1f] dark:bg-[#39393cb1] dark:text-[#eae8ed] p-2 rounded-lg flex flex-col w-full max-w-[400px]'>
+                            className='bg-[#EAE8ED] cursor-pointer transition hover:scale-[0.99] border border-[hsla(0,0%,51%,0.16)] shadow-md mb-4 text-[#1d1d1f] dark:bg-[#39393cb1] dark:text-[#eae8ed] p-2 rounded-lg flex flex-col w-full max-w-[400px] overflow-hidden'>
                             <h1 className='text-xl'>{source.infobox}</h1>
                             <img src={source.img_src} alt={source.infobox} className='w-1/2 h-1/2 mt-2 object-contain' loading='eager' />
                             <p className='text-sm text-[#1d1d1fba] mt-4 dark:text-gray-500 line-clamp-4'>{source.content}</p>
@@ -34,7 +34,7 @@ const InfoboxPreview = ({ searchResults }: InfoboxPreviewProps) => {
                                 return (
                                     <p key={index} className='text-sm mt-2'>
                                         <span>{url.title} - </span>
-                                        <a href={url.url} className='text-blue-400'>{url.url}</a>
+                                        <a href={url.url} className='text-blue-400 text-xs flex flex-wrap'>{url.url}</a>
                                     </p>
                                 );
                             })}
