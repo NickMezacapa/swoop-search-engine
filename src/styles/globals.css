@@ -145,3 +145,36 @@ input:checked + .ThemeSlider {
 	width: 250px;
 	min-width: 250px;
 }
+
+.SkeletonLoaderEntrance {
+	animation: SkeletonResultsEntrance 0.3s ease 0s forwards;
+}
+.SkeletonShimmer {
+	position: relative;
+	overflow: hidden;
+  
+	/* Set the background gradient for the shimmer effect */
+	background-repeat: no-repeat;
+	background-position: -200px 0;
+  
+	/* Animate the background position */
+	animation: shimmerAnimation 1s infinite linear;
+}
+
+@keyframes shimmerAnimation {
+	0% {
+	  background-position: -200px 0;
+	}
+	100% {
+	  background-position: 200px 0;
+	}
+  }  
+
+@keyframes SkeletonResultsEntrance {
+	from {
+		opacity: 0%;
+	}
+	to {
+		opacity: 100%;
+	}
+}
