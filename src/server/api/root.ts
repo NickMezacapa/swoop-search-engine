@@ -1,6 +1,5 @@
 import { createTRPCRouter } from "@server/api/trpc";
 import { searchRouter } from '@server/api/routers/search';
-import { swapiRouter } from './routers/swapi';
 
 /**
  * This is the primary router for your server.
@@ -8,7 +7,6 @@ import { swapiRouter } from './routers/swapi';
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-    swapi: swapiRouter,
     search: searchRouter
 });
 
