@@ -1,30 +1,18 @@
 import { z } from "zod";
-
 import { createTRPCRouter, publicProcedure } from "@server/api/trpc";
 
-/* import { fetchSearchResults } from '@utils/helpers/fetchSearchResults';
-import { fetchImageResults } from '@utils/helpers/fetchImageResults'; */
+import { SwoopClient } from '@server/clients/SwoopClient';
 
-const searchRouter = createTRPCRouter({
-    /*     swoopSearch: publicProcedure
-            .input(z.object({ query: z.string() }))
-            .query(async ({ input }) => {
-                const searchResults = await fetchSearchResults(input.query)
-                return {
-                    items: searchResults,
-                };
-            }),
-        imageSearch: publicProcedure
-            .input(z.object({ query: z.string() }))
-            .query(async ({ input }) => {
-                const imageResults = await fetchImageResults(input.query)
-                return {
-                    items: imageResults,
-                }
-            }), */
+export const searchRouter = createTRPCRouter({
+    swoopSearch: publicProcedure
+        .input(z.object({ query: z.string(), userOptions: z.number() }))
+        .query(async ({ input }) => {
+            const api = new SwoopClient('https://api.swoopsearch.dev');
+            const searchData = await api.search(input.query, input.userOptions);
+            return searchData;
+        }),
 });
 
-export { searchRouter };
 
 // const searchResults = api.search.swoopSearch.useQuery({ query: 'dogs' });
 // {JSON.stringify(searchResults?.data?.items)}

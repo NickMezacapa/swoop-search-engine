@@ -49,3 +49,44 @@ export type UseDimensionsHook = [
 export interface UseDimensionsArgs {
     liveMeasure?: boolean;
 }
+
+export interface SearchResult {
+    title: string;
+    url: string;
+    content: string;
+    [key: string]: any;
+}
+
+export interface SearchData {
+    query: string;
+    number_of_results: number;
+    results: SearchResult[];
+    suggestions: string[];
+    [key: string]: any;
+}
+
+export interface ImageResult {
+    template?: string;
+    url?: string;
+    thumbnail_src?: string;
+    img_src?: string;
+    content?: string;
+    title?: string;
+    source?: string;
+    img_format?: string;
+    engine?: string;
+    parsed_url?: string[],
+    engines?: string[],
+    positions?: number[],
+    score?: number;
+    category?: string;
+    pretty_url?: string;
+    [key: string]: any;
+}
+
+export interface ImageData {
+    query?: string;
+    number_of_results?: number;
+    results?: ImageResult[];
+    [key: string]: any;
+}
