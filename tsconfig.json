@@ -21,7 +21,7 @@
       "@public/*": ["/public/*"],
 			"@root/*": ["./*"],
 			"@components/*": ["./src/components/*"],
-			"@constants/*": ["./src/constants/*"],
+			"@constants/*": ["src/utils/constants/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@proxies/*": ["./src/proxies/*"],

@@ -1,4 +1,4 @@
-import { SEARCH_SUGGESTIONS_HOME } from '@constants/index';
+import { SEARCH_SUGGESTIONS_HOME } from '@utils/constants/index';
 import { type SearchSuggestion } from '@utils/types';
 
 export const HomeSuggestions = () => {

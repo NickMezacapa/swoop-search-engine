@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { PRIMARY_NAV_LINKS, SECONDARY_NAV_LINKS } from '@constants/index';
+import { PRIMARY_NAV_LINKS, SECONDARY_NAV_LINKS } from '@utils/constants/index';
 
 import Container from '@components/Container';
 import NavLinks from './NavLinks';

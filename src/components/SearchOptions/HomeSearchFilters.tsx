@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { SEARCH_FILTER_OPTIONS } from '@constants/index';
+import { SEARCH_FILTER_OPTIONS } from '@utils/constants/index';
 import { type SearchFilter } from '@utils/types';
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
 import GradientTile from '@components/GradientTile';
