@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Container from '@components/Container';
 import SearchFormPrimary from '@components/SearchForm/Primary';
 import HomeHeader from '@components/Headers/HomeHeader';
