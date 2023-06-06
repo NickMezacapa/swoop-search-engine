@@ -41,15 +41,13 @@ const FilterOptions = () => {
     );
 };
 
-const SafeSearch = () => {
-  return (
+const SafeSearch = () => (
     <div className='w-full h-full py-2 text-[#eae8ed] font-light flex flex-col'>
         <h3 className='select-none'>Safe Search</h3>
         <ul className='text-sm decoration-none flex justify-between mt-4'>
             <FilterOptions />
         </ul>
     </div>
-  );
-}
+);
 
 export default SafeSearch;
