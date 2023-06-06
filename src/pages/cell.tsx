@@ -5,12 +5,19 @@ import { useCellValue } from '@/stateManager'
 import { filterOptionCell } from '@/components/Settings/Widgets/SafeSearch'
 import SettingsModal from '@/components/Settings/SettingsModal'
 
-// const countCell = cell(20)
+import { api } from '@/utils/api'
 
 const Cell = () => {
     const [renderCount, setRenderCount] = useState(0)
     const option = useCellValue(filterOptionCell)
     const [showSettingsModal, setShowSettingsModal] = useState(false)
+
+    const reqConfig = {
+        query: 'cat',
+        safeSearchValue: 1, 
+    }
+
+    const searchResults = api.search.swoopSearch.useQuery(reqConfig);
 
     const toggleSettingsModal = () => {
         setShowSettingsModal((prev) => !prev)
@@ -27,6 +34,9 @@ const Cell = () => {
             <div className='w-4/5 mt-8 border border-red-500 flex flex-col justify-evenly h-auto'>
                 <p>{`Safe Search is ${option}`}</p>
                 <p>{`Render count: ${renderCount}`}</p>
+                <p>
+                    {JSON.stringify(searchResults)}
+                </p>
             </div>
         </div>
         <div className='absolute top-0 right-2'>

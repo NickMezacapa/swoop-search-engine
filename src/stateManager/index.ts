@@ -2,7 +2,11 @@ import { cellFamily } from './arrangements/cellFamily';
 import { cellWithDefault } from './arrangements/cellWithDefault';
 import { cellWithReducer } from './arrangements/cellWithReducer';
 import { cellWithReset } from './arrangements/cellWithReset';
-import { cellWithStorage, createJSONStorage } from './arrangements/cellWithStorage';
+import {
+    AsyncStorage,
+    cellWithStorage,
+    createJSONStorage
+} from './arrangements/cellWithStorage';
 
 import { useCell } from './hooks/useCell';
 import { useCellCallback } from './hooks/useCellCallback';
@@ -17,6 +21,7 @@ import { loadable } from './utils/loadable';
 import { selectCell } from './utils/selectCell';
 
 export {
+    type AsyncStorage,
     cellFamily,
     cellWithDefault,
     cellWithReducer,

@@ -1,14 +1,33 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@server/api/trpc";
+import type { SearchResult, SearchData } from '@utils/types';
+import { SwoopClient, SearchCategory, SearchConfig } from '@server/clients/SwoopClient';
 
-import { SwoopClient } from '@server/clients/SwoopClient';
+const searchInputSchema = z.object({
+    query: z.string(),
+    safeSearchValue: z.number(),
+    category: z.string().optional()
+});
 
 export const searchRouter = createTRPCRouter({
     swoopSearch: publicProcedure
-        .input(z.object({ query: z.string(), userOptions: z.number() }))
+        .input(searchInputSchema)
         .query(async ({ input }) => {
-            const api = new SwoopClient('https://api.swoopsearch.dev');
-            const searchData = await api.search(input.query, input.userOptions);
+            if (input.category && !(input.category in SearchCategory)) {
+                throw new Error(
+                    `Invalid category type: ${input.category}. Please use one of 
+                    the following categories: All, Images, Videos, News, Maps.`
+                );
+            }
+
+            const requestConfig: SearchConfig = {
+                query: input.query,
+                safeSearchValue: input.safeSearchValue,
+                category: input.category as SearchCategory ?? undefined,
+            }
+
+            const api: SwoopClient = new SwoopClient();
+            const searchData: SearchResult[] = await api.search(requestConfig);
             return searchData;
         }),
 });
