@@ -1,7 +1,8 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@server/api/trpc";
-import type { SearchResult, SearchData } from '@utils/types';
+
 import { SwoopClient, SearchCategory, SearchConfig } from '@server/clients/SwoopClient';
+import type { SearchResult } from '@utils/types';
 
 const searchInputSchema = z.object({
     query: z.string(),
