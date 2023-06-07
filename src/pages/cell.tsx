@@ -27,9 +27,9 @@ const Cell = () => {
         <div className='w-4/5 min-h-[80%] border border-blue-500 p-4 flex flex-col'>
             <h1>Content</h1>
             <div className='w-4/5 mt-8 border border-red-500 flex flex-col justify-evenly h-auto'>
-                <p>
+                <div>
                     {isLoading ? <p>Loading...</p> : JSON.stringify(data)}
-                </p>
+                </div>
             </div>
         </div>
         <div className='absolute top-0 right-2'>
