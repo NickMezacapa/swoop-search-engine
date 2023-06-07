@@ -11,11 +11,11 @@ const Cell = () => {
     const [showSettingsModal, setShowSettingsModal] = useState(false)
 
     const reqConfig = {
-        query: 'cat',
+        query: 'squirrel',
         safeSearchValue: 1, 
     }
 
-    const searchResults = api.search.swoopSearch.useQuery(reqConfig);
+    const { data, isLoading } = api.swoop.search.useQuery(reqConfig);
 
     const toggleSettingsModal = () => {
         setShowSettingsModal((prev) => !prev)
@@ -28,7 +28,7 @@ const Cell = () => {
             <h1>Content</h1>
             <div className='w-4/5 mt-8 border border-red-500 flex flex-col justify-evenly h-auto'>
                 <p>
-                    {JSON.stringify(searchResults)}
+                    {isLoading ? <p>Loading...</p> : JSON.stringify(data)}
                 </p>
             </div>
         </div>

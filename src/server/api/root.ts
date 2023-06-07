@@ -1,13 +1,13 @@
 import { createTRPCRouter } from "@server/api/trpc";
-import { searchRouter } from '@server/api/routers/search';
+import { swoopRouter } from '@server/api/routers/swoop';
 
 /**
- * This is the primary router for your server.
+ * This is the primary router for the server.
  *
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-    search: searchRouter
+    swoop: swoopRouter
 });
 
 // export type definition of API
