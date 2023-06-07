@@ -8,7 +8,7 @@ export const SeoConfig: DefaultSeoProps = {
         title: 'Swoop - Private Search Engine',
         type: 'website',
         locale: 'en_IE',
-        url: '',
+        url: 'https://swoopsearch.dev',
         siteName: 'Swoop Private Search Engine',
         profile: {
             firstName: 'Nick',

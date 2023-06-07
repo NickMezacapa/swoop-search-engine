@@ -1,13 +1,14 @@
 import { motion } from 'framer-motion';
-import { useGetSearchResults } from '@hooks/useGetSearchResults';
+import type { SearchResult } from '@/utils/types';
 
 interface ResultLinksProps {
-    query: string;
+    data: SearchResult[] | undefined;
+    isLoading: boolean;
+    error: any;
 }
 
-const ResultLinks = ({ query }: ResultLinksProps) => {
-    const { loading, error, data } = useGetSearchResults(query, false);
-    if (loading) {
+const ResultLinks = ({ data, isLoading, error }: ResultLinksProps) => {
+    if (isLoading) {
         const arr = Array(10).fill('')
         return (
             <div className='SkeletonLoaderEntrance flex flex-col w-1/2 opacity-0 h-full max-w-[800px] transition ease'>
@@ -32,7 +33,7 @@ const ResultLinks = ({ query }: ResultLinksProps) => {
   return (
     <div className='w-full md:w-[50%] py-2 pr-2'>
     {
-        data?.results?.map((result: any, index: number) => {
+        data?.map((result: any, index: number) => {
             return (
                 <motion.div 
                     key={result.url}

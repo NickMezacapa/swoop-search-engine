@@ -4,7 +4,10 @@ import InfoboxPreview from './InfoboxPreview';
 import ResultLinks from './ResultLinks';
 
 import DynamicLogo from '@components/HomePage/DynamicLogo';
-import { useGetSearchResults } from '@hooks/useGetSearchResults';
+import { filterOptionCell } from '@components/Settings/Widgets/SafeSearch';
+
+import { useCellValue } from '@/stateManager';
+import { api } from '@utils/api';
 
 interface SearchResultsProps {
     query: string;
@@ -12,9 +15,31 @@ interface SearchResultsProps {
 
 const SearchResults = ({ query }: SearchResultsProps) => {
     const [numResults, setNumResults] = useState<string | null>(null);
-    const forImages = false;
-    const { loading, error, data } = useGetSearchResults(query, forImages);
+    const safeSearchValue = useCellValue(filterOptionCell);
+    let switchValue: number = 0;
 
+    switch (safeSearchValue) {
+        case 'Off':
+          switchValue = 0;
+          break;
+        case 'Mid':
+          switchValue = 1;
+          break;
+        case 'Strict':
+          switchValue = 2;
+          break;
+        default:
+          switchValue = 0;
+          break;
+      }
+
+    const requestConfig = {
+        query: query,
+        safeSearchValue: switchValue,
+    };
+
+    const { data, isLoading, error } = api.swoop.search.useQuery(requestConfig);
+    
     useEffect(() => {
         const rand = Math.floor(Math.random() * (3500000 - 2000000 + 1)) + 2000000;
         setNumResults((prev) => rand.toLocaleString());
@@ -24,7 +49,7 @@ const SearchResults = ({ query }: SearchResultsProps) => {
         <div className='w-full flex flex-col mx-auto pl-6 sm:pl-12 pt-6 pr-3'>
             <p className='text-[#1d1d1f56] dark:text-gray-500 text-sm'>About {numResults} results</p>
             <div className='w-full mt-4 text-[#1d1d1f] dark:text-[#eae8ed] flex justify-between max-w-[1500px]'>
-                <ResultLinks query={query} />
+                <ResultLinks data={data} isLoading={isLoading} error={error} />
                 <div className='w-[40%] max-h-[400px] hidden md:flex flex-col pr-4'>
                     <div className='max-w-[400px]'>
                         <h1 className='flex items-center border-b py-2'>
@@ -33,7 +58,7 @@ const SearchResults = ({ query }: SearchResultsProps) => {
                         </h1>
                         <ImagesPreview query={query} />
                     </div>
-                    <InfoboxPreview searchResults={data} />
+                    <InfoboxPreview query={query} />
                 </div>
             </div>  
         </div>

@@ -6,7 +6,7 @@ import { FiSettings } from 'react-icons/fi';
 import { useSearchFilterState } from '@contexts/SearchFilterProvider';
 
 import SearchFormSecondary from '@components/SearchForm/Secondary';
-import HeaderOptions from '@components/Header/HeaderOptions';
+import HeaderOptions from '@/components/Headers/HeaderOptions';
 import SettingsModal from '@components/Settings/SettingsModal';
 import DynamicLogo from '@components/HomePage/DynamicLogo';
 
@@ -47,7 +47,7 @@ const ResultsHeader = ({ pathname }: ResultsHeaderProps) => {
     };
 
   return (
-    <header className='w-full min-w-screen bg-[#eae8ed] text-[#1d1d1f] dark:text-[#eae8ed] dark:bg-[#121212] sticky border-b border-[#a1a1a68d] pb-2 z-[9999] backdrop-blur-md'>
+    <header className='w-full min-w-screen bg-[#eae8ed] text-[#1d1d1f] dark:text-[#eae8ed] dark:bg-[#1d1d1f] sticky border-b border-[#a1a1a68d] pb-2 z-[9999] backdrop-blur-md'>
         <div className='flex w-full py-6 px-0 sm:px-6 sm:py-5 items-center'>
             <div onClick={useNavigateToHomepage} className='flex items-center cursor-pointer space-x-[-1rem] pr-5'>
                 <DynamicLogo height={40} width={100} />

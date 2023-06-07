@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
 
 import { SEARCH_FILTER_OPTIONS } from '@utils/constants/index';
 import { type SearchFilter } from '@utils/types';
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
-import GradientTile from '@components/GradientTile';
+
+import GradientTile from '@components/HomePage/GradientTile';
 
 const HomeSearchFilters = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -63,8 +64,6 @@ const HomeSearchFilters = () => {
     (opts: SearchFilter) => opts.path !== router.pathname || opts.path !== router.asPath
   );
 
-  // TAILWIND GRADIENT
-  // [mask-image:linear-gradient(to_bottom,white_60%,transparent)]
   return (
     <div className='overflow-x-scroll relative' ref={parentRef}>
       <div className={`absolute h-full w-[65%] max-w-5xl mx-auto flex items-center justify-end`}>
