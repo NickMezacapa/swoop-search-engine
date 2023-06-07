@@ -24,6 +24,7 @@ const InfoboxPreview = ({ query }: InfoboxPreviewProps) => {
         <div>
             {!!searchResults?.data?.infoboxes &&
                 searchResults?.data?.infoboxes?.map((source: InfoBox) => {
+                    if (!source.img_src) return;
                     return (
                         <div 
                             key={`${uuidv4()}`}

@@ -11,7 +11,7 @@ const ResultLinks = ({ data, isLoading, error }: ResultLinksProps) => {
     if (isLoading) {
         const arr = Array(10).fill('')
         return (
-            <div className='SkeletonLoaderEntrance flex flex-col w-1/2 opacity-0 h-full max-w-[800px] transition ease'>
+            <div className='SkeletonLoaderEntrance flex flex-col w-full sm:w-1/2 opacity-0 h-full max-w-[800px] transition ease'>
                 {arr.map((_, i) => {
                     return (
                         <div 
@@ -56,7 +56,9 @@ const ResultLinks = ({ data, isLoading, error }: ResultLinksProps) => {
                         <a href={result.url}>
                             <h1 className='text-xl text-[#1d1d1f] dark:text-[#eae8ed] truncate group-hover:underline my-2'>{result.title}</h1>
                         </a>
-                        <p className='text-sm cursor-pointer text-[#1d1d1fba] dark:text-gray-400 line-clamp-3'>{result.content}</p>
+                        <p className='text-sm cursor-pointer text-[#1d1d1fba] dark:text-gray-400 line-clamp-3'>
+                            {result.content.charAt(0).toUpperCase() + result.content.slice(1)}
+                        </p>
                     </div>
                 </motion.div>
             );
