@@ -7,12 +7,12 @@ import DynamicLogo from '@components/HomePage/DynamicLogo';
 import { filterOptionCell } from '@components/Settings/Widgets/SafeSearch';
 
 import { useCellValue } from '@/stateManager';
-import { api } from '@/utils/api';
+import { api } from '@utils/api';
 
 interface SearchResultsProps {
     query: string;
 }
-// make client wrapper generic instead of hardcoding SearchResult[]
+
 const SearchResults = ({ query }: SearchResultsProps) => {
     const [numResults, setNumResults] = useState<string | null>(null);
     const safeSearchValue = useCellValue(filterOptionCell);
