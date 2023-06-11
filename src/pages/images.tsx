@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import DefaultHome from '@components/DefaultPage/DefaultHome';
 import ResultsHeader from '@components/Headers/ResultsHeader';
+import ImageResults from '@components/ResultPages/Images/ImageResults';
 
 const Images = () => {
   const router = useRouter();
@@ -31,6 +32,7 @@ const Images = () => {
             <meta name="theme-color" content="#000000" />
         </Head>
         <ResultsHeader pathname={path} />
+        <ImageResults query={JSON.stringify(router.query.q).replace(/\"/g, "")} />
     </section>
   )
 }
