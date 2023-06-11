@@ -61,8 +61,8 @@ const HomeSearchFilters = () => {
   // only want to display search filters that do not match current URI
   // ex: if `/images`, then 'Images' result filter should not be displayed
   const dynamicSearchFilters = SEARCH_FILTER_OPTIONS.filter(
-    (opts: SearchFilter) => opts.path !== router.pathname || opts.path !== router.asPath
-  );
+    (opts: SearchFilter) => opts.path !== router.pathname && opts.path !== router.asPath
+  );  
 
   return (
     <div className='overflow-x-scroll relative' ref={parentRef}>
@@ -88,10 +88,10 @@ const HomeSearchFilters = () => {
                 <div 
                   onClick={() => router.replace(item.path)}
                   className='absolute top-0 left-0 right-0 w-full h-full bg-[#1d1d1f7f] rounded-lg backdrop-blur-sm'>
-                  <p className='pl-6 pt-6 flex gap-x-2 items-center'>
+                  <div className='pl-6 pt-6 flex gap-x-2 items-center'>
                     <span>{<ItemIcon className='h-5' />}</span>
                     <span>{item.title}</span>
-                  </p>
+                  </div>
                 </div>
             </GradientTile>
           );
