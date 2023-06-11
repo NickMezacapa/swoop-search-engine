@@ -16,7 +16,7 @@
 import axios, { AxiosResponse } from 'axios';
 import type { SearchResult, SearchData } from '@utils/types';
 
-type SwoopApiResponse = AxiosResponse<SearchData>;
+type SwoopApiResponse<T> = AxiosResponse<SearchData<T>>;
 
 export enum SearchCategory {
     All = 'general',
@@ -32,14 +32,14 @@ export interface SearchConfig {
     category?: SearchCategory;
 }
 
-export interface ClientCommunicator {
-    search(config: SearchConfig): Promise<SearchResult[]>;
-    searchByCategory(config: SearchConfig): Promise<SearchResult[]>;
+export interface ClientCommunicator<T extends SearchResult> {
+    search(config: SearchConfig): Promise<T[]>;
+    searchByCategory(config: SearchConfig): Promise<T[]>;
 }
 
 const BASE_API_URL = process.env.BASE_SEARCH_API_URL;
 
-export class SwoopClient implements ClientCommunicator {
+export class SwoopClient<T extends SearchResult> implements ClientCommunicator<T> {
     sessionStorage: Storage | undefined;
     constructor() {
         if (!BASE_API_URL) {
@@ -50,7 +50,7 @@ export class SwoopClient implements ClientCommunicator {
         }
     }
 
-    private async fetchResults(config: SearchConfig): Promise<SearchResult[]> {
+    private async fetchResults(config: SearchConfig): Promise<T[]> {
         const { query, safeSearchValue, category } = config;
         const params: Record<string, any> = {
             q: query,
@@ -60,21 +60,21 @@ export class SwoopClient implements ClientCommunicator {
         };
         if (category) params[`category_${category}`] = 'on';
 
-        const response: SwoopApiResponse = await axios.get<SearchData>(
+        const response: SwoopApiResponse<T> = await axios.get<SearchData<T>>(
             `${BASE_API_URL}`, { params }
         );
 
         return response.data.results;
     }
 
-    private getResultsFromSessionStorage(query: string): SearchResult[] | null {
+    private getResultsFromSessionStorage(query: string): T[] | null {
         if (!this.sessionStorage) return null;
         const results = this.sessionStorage.getItem(query);
         if (!results) return null;
         return JSON.parse(results);
     }
 
-    private setResultsToSessionStorage(query: string, results: SearchResult[]): void {
+    private setResultsToSessionStorage(query: string, results: T[]): void {
         if (!this.sessionStorage || !results.length) return;
         this.sessionStorage.setItem(query, JSON.stringify(results));
     }
@@ -86,7 +86,7 @@ export class SwoopClient implements ClientCommunicator {
      * @param {SearchConfig} config - The search configuration object, contains the query and other search parameters.
      * @return {Promise<SearchResult[]>} - A promise that resolves to an array of search results.
      */
-    async search(config: SearchConfig): Promise<SearchResult[]> {
+    async search(config: SearchConfig): Promise<T[]> {
         const { query } = config;
         // check for cached results from session storage
         const cachedResults = this.getResultsFromSessionStorage(query);
@@ -106,7 +106,7 @@ export class SwoopClient implements ClientCommunicator {
      * @return {Promise<SearchResult[]>} - A promise that resolves to an array of search results belonging to category.
      * @throws {Error} - Throws error if a valid category is not provided in config.
      */
-    async searchByCategory(config: SearchConfig): Promise<SearchResult[]> {
+    async searchByCategory(config: SearchConfig): Promise<T[]> {
         const { category, query } = config;
         if (!category) {
             throw new Error('A valid category is needed when using searchByCategory.');
@@ -122,4 +122,5 @@ export class SwoopClient implements ClientCommunicator {
         this.setResultsToSessionStorage(`${category}_${query}`, categoryResults);
         return categoryResults;
     }
+
 }

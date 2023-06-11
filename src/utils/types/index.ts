@@ -51,17 +51,17 @@ export interface UseDimensionsArgs {
 }
 
 export interface SearchResult {
-    title: string;
-    url: string;
-    content: string;
+    title?: string;
+    url?: string;
+    content?: string;
     [key: string]: any;
 }
 
-export interface SearchData {
-    query: string;
-    number_of_results: number;
-    results: SearchResult[];
-    suggestions: string[];
+export interface SearchData<T> {
+    query?: string;
+    number_of_results?: number;
+    results: T[];
+    suggestions?: string[];
     [key: string]: any;
 }
 
