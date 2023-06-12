@@ -1,11 +1,11 @@
-import { SwoopClient, ClientCommunicator, SearchCategory, SearchConfig } from '../src/server/clients/SwoopClient';
+import { SwoopClient, BaseClient, SearchCategory, SearchConfig } from '../src/server/clients/SwoopClient';
 import type { SearchResult } from '../src/utils/types';
 import type { SearchData } from '../src/utils/types';
 import axios from 'axios';
 
 // SwoopClient Mock
 
-export class MockSwoopClient implements ClientCommunicator {
+export class MockSwoopClient implements BaseClient<SearchResult> {
     // instead of using session storage, we will use a simple object
     cache: Record<string, SearchResult[]> = {};
     constructor() {
@@ -22,7 +22,7 @@ export class MockSwoopClient implements ClientCommunicator {
         };
         if (category) params[`category_${category}`] = 'on';
 
-        const response = await axios.get<SearchData>(
+        const response = await axios.get<SearchData<SearchResult>>(
             `https://api.swoopsearch.dev/search`, { params }
         );
 

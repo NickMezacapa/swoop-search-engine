@@ -32,14 +32,14 @@ export interface SearchConfig {
     category?: SearchCategory;
 }
 
-export interface ClientCommunicator<T extends SearchResult> {
+export interface BaseClient<T extends SearchResult> {
     search(config: SearchConfig): Promise<T[]>;
     searchByCategory(config: SearchConfig): Promise<T[]>;
 }
 
 const BASE_API_URL = process.env.BASE_SEARCH_API_URL;
 
-export class SwoopClient<T extends SearchResult> implements ClientCommunicator<T> {
+export class SwoopClient<T extends SearchResult> implements BaseClient<T> {
     sessionStorage: Storage | undefined;
     constructor() {
         if (!BASE_API_URL) {
@@ -84,7 +84,7 @@ export class SwoopClient<T extends SearchResult> implements ClientCommunicator<T
      * If the results are cached in session storage, they will be returned.
      * Otherwise, the results will be fetched from the API and cached in session storage.
      * @param {SearchConfig} config - The search configuration object, contains the query and other search parameters.
-     * @return {Promise<SearchResult[]>} - A promise that resolves to an array of search results.
+     * @return {Promise<T[]>} - A promise that resolves to an array of categorical search results.
      */
     async search(config: SearchConfig): Promise<T[]> {
         const { query } = config;
@@ -103,7 +103,7 @@ export class SwoopClient<T extends SearchResult> implements ClientCommunicator<T
      * If the results are cached in session storage, they will be returned.
      * Otherwise, the results will be fetched from the API and cached in session storage.
      * @param {SearchConfig} config - The search configuration object, contains the query and other search parameters.
-     * @return {Promise<SearchResult[]>} - A promise that resolves to an array of search results belonging to category.
+     * @return {Promise<T[]>} - A promise that resolves to an array of search results belonging to category.
      * @throws {Error} - Throws error if a valid category is not provided in config.
      */
     async searchByCategory(config: SearchConfig): Promise<T[]> {
