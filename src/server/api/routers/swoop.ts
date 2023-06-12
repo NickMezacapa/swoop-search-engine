@@ -61,6 +61,6 @@ export const swoopRouter = createTRPCRouter({
             // Create a new SwoopClient instance and fetch the image results
             const api: SwoopClient<ImageResult> = new SwoopClient<ImageResult>();
             const imageResults: ImageResult[] = await api.search(requestConfig);
-            return imageResults;
+            return imageResults.slice(0, 45); // only returning the first 45 results of ~160 average
         }),
 });

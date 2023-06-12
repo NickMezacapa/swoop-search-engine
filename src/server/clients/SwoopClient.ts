@@ -19,11 +19,11 @@ import type { SearchResult, SearchData } from '@utils/types';
 type SwoopApiResponse<T> = AxiosResponse<SearchData<T>>;
 
 export enum SearchCategory {
-    All = 'general',
-    Images = 'images',
-    Videos = 'videos',
-    News = 'news',
-    Maps = 'maps'
+    all = 'general',
+    images = 'images',
+    videos = 'videos',
+    news = 'news',
+    maps = 'maps'
 }
 
 export interface SearchConfig {
