@@ -48,7 +48,11 @@ const ImageResults = ({ query }: ImageResultsProps) => {
   };
 
   const { data, isLoading, error } = api.swoop.imageSearch.useQuery(requestConfig);
-  console.log(data)
+
+  const openImageSource = (url: string) => {
+    window.open(url, '_blank');
+  };
+
   if (error) {
     return (
       <div className='text-[#1d1d1f] dark:text-[#eae8ed] font-semibold text-2xl'>There was an error retrieving the image results.</div>
@@ -72,7 +76,8 @@ const ImageResults = ({ query }: ImageResultsProps) => {
                 src={result.img_src}
                 alt={result.title}
                 loading='lazy'
-                className='h-[82%] w-full object-cover rounded-md'
+                className='h-[82%] w-full object-cover rounded-md cursor-pointer'
+                onClick={openImageSource.bind(null, result.img_src)}
                 onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                   // Handle image loading error
                   e.preventDefault();
@@ -81,7 +86,7 @@ const ImageResults = ({ query }: ImageResultsProps) => {
                   result.img_src = '/assets/globe.png';
                 }}
               />
-              <h1 className='text-xs leading-4 line-clamp-1 p-1 text-[#1d1d1fba]'>{source && source.charAt(0).toUpperCase() + source.slice(1)}</h1>
+              <h1 className='text-xs leading-4 line-clamp-1 p-1 text-[#1d1d1fba] dark:text-[#eae8eda7]'>{source && source.charAt(0).toUpperCase() + source.slice(1)}</h1>
               <h1 className='text-sm leading-4 line-clamp-1 px-1'>{result.title && result.title.charAt(0).toUpperCase() + result.title.slice(1)}</h1>
             </div>
           );

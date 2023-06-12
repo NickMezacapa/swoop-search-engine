@@ -4,8 +4,8 @@ import { BsImages } from 'react-icons/bs';
 
 import { v4 as uuidv4 } from 'uuid';
 
+import { api } from '@utils/api';
 import { handleRouting } from '@utils/helpers/handleRouting';
-import { useGetSearchResults } from '@hooks/useGetSearchResults';
 
 interface ImagesPreviewProps {
     query: string;
@@ -21,7 +21,7 @@ interface ImageRowProps {
 const ImageRow = ({x, y, className, data}: ImageRowProps) => {
     return (
         <div className={`w-full flex justify-evenly ${className}`}>
-        {data?.results?.slice(x,y).map((obj: any) => {
+        {data?.slice(x,y).map((obj: any) => {
             return (
                 <div key={`${uuidv4()}`} className='w-[30%] h-[100px] float-left rounded-lg overflow-hidden border border-[hsla(0,0%,51%,0.2)] cursor-pointer transition duration-100 hover:scale-[0.99]'>
                     <img src={obj.img_src} alt={obj.title ?? ''} className='h-full w-full object-cover' loading='eager' />
@@ -55,13 +55,18 @@ const SkeletonPreview = () => {
 
 const ImagesPreview = ({ query }: ImagesPreviewProps) => {
     const router = useRouter();
-    const { loading, error, data } = useGetSearchResults(query, true);
 
+    const requestConfig = {
+        query: query,
+        safeSearchValue: 0,
+        category: "images"
+    };
+    const { data, isLoading, error } = api.swoop.imageSearch.useQuery(requestConfig);
     const handleImageReroute = () => {
         handleRouting(router, query, 'images');
     };
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className='flex flex-col my-8 relative'>
                 <SkeletonPreview />
