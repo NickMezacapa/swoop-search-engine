@@ -90,6 +90,7 @@ export interface VideoResult extends BaseResult {
     author: string;
     length: string;
     iframe_src: string;
+    publishedDate?: string;
 }
 
 export interface VideoData extends SearchData<VideoResult> { }

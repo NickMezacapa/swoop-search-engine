@@ -10,16 +10,18 @@ const Search = ({ searchResults, imageResults }: any) => {
   
   // ensure there is a search query, else display homepage with variant
   let path: string = '';
-  if (router.pathname !== '/search') path = router.pathname;
+  if (router.pathname !== '/search') path = router.pathname.replace(/^./, "");
   if (!router.query.q) return <DefaultHome variant={path} />;
+
+  const query = JSON.stringify(router.query.q).replace(/\"/g, "");
 
   return (
     <section className='relative h-full min-h-[100vh] w-full overflow-x-hidden'>
         <Head>
             <title>Swoop Results</title>
             <meta
-				      name="description"
-				      content="Search results for given query."
+				      name={`Swoop Results - ${query}`}
+				      content={`Swoop search results for: ${query}`}
 			      />
           <link rel="icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -30,8 +32,8 @@ const Search = ({ searchResults, imageResults }: any) => {
           <meta name="msapplication-TileColor" content="#1d1d1f" />
           <meta name="theme-color" content="#000000" />
         </Head>
-        <ResultsHeader pathname={router.pathname.replace(/^./, "")} />
-        <SearchResults query={JSON.stringify(router.query.q).replace(/\"/g, "")} />
+        <ResultsHeader pathname={path} />
+        <SearchResults query={query} />
     </section>
   )
 }

@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import DefaultHome from '@components/DefaultPage/DefaultHome';
 import ResultsHeader from '@components/Headers/ResultsHeader';
+import VideoResults from '@components/ResultPages/Videos/VideoResults';
 
 const Videos = () => {
   const router = useRouter();
@@ -13,13 +14,15 @@ const Videos = () => {
   };
   if (!router.query.q) return <DefaultHome variant={path} />;
 
+  const query = JSON.stringify(router.query.q).replace(/\"/g, "");
+
   return (
     <section className='relative h-full min-h-[100vh] w-full overflow-x-hidden' aria-label='Swoop Videos'>
         <Head>
             <title>Swoop Videos</title>
             <meta
-				name="description"
-				content="Search results for given query."
+				name={`Swoop Videos - ${query}`}
+				content={`Video results for: ${query}`}
 			/>
 			<link rel="icon" href="/favicon.ico" />
 			<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -30,7 +33,8 @@ const Videos = () => {
 			<meta name="msapplication-TileColor" content="#1d1d1f" />
 			<meta name="theme-color" content="#000000" />
         </Head>
-        <ResultsHeader />
+        <ResultsHeader pathname={path} />
+        <VideoResults query={query} />
     </section>
   )
 }

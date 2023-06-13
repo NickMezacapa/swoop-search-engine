@@ -14,13 +14,15 @@ const Images = () => {
   };
   if (!router.query.q) return <DefaultHome variant={path} />;
 
+  const query = JSON.stringify(router.query.q).replace(/\"/g, "");
+
   return (
     <section className='relative h-full min-h-[100vh] w-full overflow-x-hidden' aria-label='Swoop Images'>
         <Head>
             <title>Swoop Images</title>
             <meta
-              name="description"
-              content="Search results for given query."
+              name={`Swoop Images - ${query}`}
+              content={`Swoop Image results for: ${query}`}
             />
             <link rel="icon" href="/favicon.ico" />
             <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -32,7 +34,7 @@ const Images = () => {
             <meta name="theme-color" content="#000000" />
         </Head>
         <ResultsHeader pathname={path} />
-        <ImageResults query={JSON.stringify(router.query.q).replace(/\"/g, "")} />
+        <ImageResults query={query} />
     </section>
   )
 }
