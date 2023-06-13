@@ -30,6 +30,7 @@ export interface SearchConfig {
     query: string;
     safeSearchValue: number;
     category?: SearchCategory;
+    pageno?: number;
 }
 
 export interface BaseClient<T extends SearchResult> {
@@ -51,11 +52,12 @@ export class SwoopClient<T extends SearchResult> implements BaseClient<T> {
     }
 
     private async fetchResults(config: SearchConfig): Promise<T[]> {
-        const { query, safeSearchValue, category } = config;
+        const { query, safeSearchValue, category, pageno } = config;
         const params: Record<string, any> = {
             q: query,
             language: 'en',
             safesearch: safeSearchValue ?? 0,
+            pageno: pageno ?? 1,
             format: 'json',
         };
         if (category) params[`category_${category}`] = 'on';

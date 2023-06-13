@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
 import ImagesPreview from './ImagesPreview';
 import InfoboxPreview from './InfoboxPreview';
 import ResultLinks from './ResultLinks';
 
 import DynamicLogo from '@components/HomePage/DynamicLogo';
+import PaginationButtons from '@components/Pagination/PaginationButtons';
 import { filterOptionCell } from '@components/Settings/Widgets/SafeSearch';
 
 import { useCellValue } from '@/stateManager';
 import { api } from '@utils/api';
+import { router } from '@trpc/server';
+
 
 interface SearchResultsProps {
     query: string;
 }
 
 const SearchResults = ({ query }: SearchResultsProps) => {
+    const router = useRouter();
     const [numResults, setNumResults] = useState<string | null>(null);
     const safeSearchValue = useCellValue(filterOptionCell);
     let switchValue: number = 0;
@@ -36,6 +42,10 @@ const SearchResults = ({ query }: SearchResultsProps) => {
     const requestConfig = {
         query: query,
         safeSearchValue: switchValue,
+        pageno: router.query.pageno 
+            ? Number(router.query.pageno) >= 1 
+            && Number(router.query.pageno) + 1 
+            : 1,
     };
 
     const { data, isLoading, error } = api.swoop.search.useQuery(requestConfig);
@@ -60,7 +70,8 @@ const SearchResults = ({ query }: SearchResultsProps) => {
                     </div>
                     <InfoboxPreview query={query} />
                 </div>
-            </div>  
+            </div> 
+            <PaginationButtons />
         </div>
     );
 };
