@@ -8,8 +8,30 @@ import type { SearchResult, ImageResult } from '@utils/types';
 const searchInputSchema = z.object({
     query: z.string().min(1),
     safeSearchValue: z.number().default(0),
+    pageno: z.number().optional(),
     category: z.string().optional(),
 });
+
+// Common function for fetching search results
+async function fetchSearchResults<T extends SearchResult>(input: z.infer<typeof searchInputSchema>): Promise<T[]> {
+    if (input.category && !(input.category in SearchCategory)) {
+        // If the category is not a valid SearchCategory, throw an error
+        throw new Error(`Invalid category type: ${input.category}. Please use one of the following categories: All, Images, Videos, News, Maps.`);
+    }
+
+    // Define the request configuration for the SwoopClient
+    const requestConfig: SearchConfig = {
+        query: input.query,
+        safeSearchValue: input.safeSearchValue,
+        pageno: input.pageno,
+        category: input.category as SearchCategory ?? undefined,
+    }
+
+    // Create a new SwoopClient instance and fetch the search results
+    const api = new SwoopClient<T>(); // Use type inference for SwoopClient instance
+    const searchData: T[] = await api.search(requestConfig);
+    return searchData;
+}
 
 /**
  * The search procedure is responsible for handling the search request.
@@ -18,49 +40,9 @@ const searchInputSchema = z.object({
 export const swoopRouter = createTRPCRouter({
     search: publicProcedure
         .input(searchInputSchema)
-        .query(async ({ input }) => {
-            if (input.category && !(input.category in SearchCategory)) {
-                // If the category is not a valid SearchCategory, throw an error
-                throw new Error(
-                    `Invalid category type: ${input.category}. Please use one of 
-                    the following categories: All, Images, Videos, News, Maps.`
-                );
-            }
-
-            // Define the request configuration for the SwoopClient
-            const requestConfig: SearchConfig = {
-                query: input.query,
-                safeSearchValue: input.safeSearchValue,
-                category: input.category as SearchCategory ?? undefined,
-            }
-
-            // Create a new SwoopClient instance and fetch the search results
-            const api: SwoopClient<SearchResult> = new SwoopClient<SearchResult>();
-            const searchData: SearchResult[] = await api.search(requestConfig);
-            return searchData;
-        }),
+        .query(({ input }) => fetchSearchResults<SearchResult>(input)),
 
     imageSearch: publicProcedure
         .input(searchInputSchema)
-        .query(async ({ input }) => {
-            if (input.category && !(input.category in SearchCategory)) {
-                // If the category is not a valid SearchCategory, throw an error
-                throw new Error(
-                    `Invalid category type: ${input.category}. Please use one of 
-                    the following categories: All, Images, Videos, News, Maps.`
-                );
-            }
-
-            // Define the request configuration for the SwoopClient
-            const requestConfig: SearchConfig = {
-                query: input.query,
-                safeSearchValue: input.safeSearchValue,
-                category: input.category as SearchCategory ?? undefined,
-            }
-
-            // Create a new SwoopClient instance and fetch the image results
-            const api: SwoopClient<ImageResult> = new SwoopClient<ImageResult>();
-            const imageResults: ImageResult[] = await api.search(requestConfig);
-            return imageResults.slice(0, 45); // only returning the first 45 results of ~160 average
-        }),
+        .query(({ input }) => fetchSearchResults<ImageResult>(input).then(results => results.slice(0, 45))),
 });
