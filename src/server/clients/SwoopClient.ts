@@ -14,9 +14,9 @@
  */
 
 import axios, { AxiosResponse } from 'axios';
-import type { SearchResult, SearchData } from '@utils/types';
+import type { BaseResult, SearchResult, SearchData } from '@utils/types';
 
-type SwoopApiResponse<T> = AxiosResponse<SearchData<T>>;
+type SwoopApiResponse<T extends BaseResult> = AxiosResponse<SearchData<T>>;
 
 export enum SearchCategory {
     all = 'general',
@@ -34,6 +34,7 @@ export interface SearchConfig {
 }
 
 export interface BaseClient<T extends SearchResult> {
+    getInfoboxData(config: SearchConfig): Promise<T[]>;
     search(config: SearchConfig): Promise<T[]>;
     searchByCategory(config: SearchConfig): Promise<T[]>;
 }
@@ -67,6 +68,28 @@ export class SwoopClient<T extends SearchResult> implements BaseClient<T> {
         );
 
         return response.data.results;
+    }
+
+    /**
+     * Retrieves infobox data for the specified query.
+     * Infobox data is used to populate the infobox component on the search results page.
+     */
+    async getInfoboxData(config: SearchConfig): Promise<T[]> {
+        const { query, safeSearchValue, category, pageno } = config;
+        const params: Record<string, any> = {
+            q: query,
+            language: 'en',
+            safesearch: safeSearchValue ?? 0,
+            pageno: pageno ?? 1,
+            format: 'json',
+        };
+        if (category) params[`category_${category}`] = 'on';
+
+        const response: SwoopApiResponse<T> = await axios.get<SearchData<T>>(
+            `${BASE_API_URL}`, { params }
+        );
+
+        return response.data.infoboxes;
     }
 
     private getResultsFromSessionStorage(query: string): T[] | null {

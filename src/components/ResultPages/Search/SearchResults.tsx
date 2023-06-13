@@ -44,7 +44,8 @@ const SearchResults = ({ query }: SearchResultsProps) => {
         safeSearchValue: switchValue,
         pageno: router.query.pageno 
             ? Number(router.query.pageno) >= 1 
-            && Number(router.query.pageno) + 1 
+            ? Number(router.query.pageno) + 1 
+            : 1
             : 1,
     };
 

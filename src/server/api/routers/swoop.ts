@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@server/api/trpc";
-
 import { SwoopClient, SearchCategory, SearchConfig } from '@server/clients/SwoopClient';
-import type { SearchResult, ImageResult } from '@utils/types';
+
+import type { SearchResult, ImageResult, VideoResult } from '@utils/types';
 
 // Define the input schema for the search procedure
 const searchInputSchema = z.object({
@@ -45,4 +45,21 @@ export const swoopRouter = createTRPCRouter({
     imageSearch: publicProcedure
         .input(searchInputSchema)
         .query(({ input }) => fetchSearchResults<ImageResult>(input).then(results => results.slice(0, 45))),
+
+    videoSearch: publicProcedure
+        .input(searchInputSchema)
+        .query(({ input }) => fetchSearchResults<VideoResult>(input).then(results => results.slice(0, 25))),
+
+    infoboxes: publicProcedure
+        .input(searchInputSchema)
+        .query(({ input }) => {
+            const { query, safeSearchValue, pageno } = input;
+            const requestConfig: SearchConfig = {
+                query,
+                safeSearchValue,
+                pageno,
+            }
+            const api = new SwoopClient();
+            return api.getInfoboxData(requestConfig);
+        }),
 });

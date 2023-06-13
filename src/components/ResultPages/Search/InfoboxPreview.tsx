@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { v4 as uuidv4 } from 'uuid';
-import { useGetSearchResults } from '@hooks/useGetSearchResults';
+import { api } from '@utils/api';
 
 interface InfoBoxUrl {
     title: string;
@@ -19,11 +19,17 @@ interface InfoboxPreviewProps {
 }
 
 const InfoboxPreview = ({ query }: InfoboxPreviewProps) => {
-    const searchResults = useGetSearchResults(query, false);
+    const requestConfig = {
+        query: query,
+        safeSearchValue: 0,
+        pageno: 1,
+    }
+    const { data } = api.swoop.infoboxes.useQuery(requestConfig);
+
     return (
         <div>
-            {!!searchResults?.data?.infoboxes &&
-                searchResults?.data?.infoboxes?.map((source: InfoBox) => {
+            {!!data &&
+                data?.map((source: any) => {
                     if (!source.img_src) return;
                     return (
                         <div 

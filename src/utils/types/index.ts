@@ -50,14 +50,17 @@ export interface UseDimensionsArgs {
     liveMeasure?: boolean;
 }
 
-export interface SearchResult {
+export interface BaseResult {
     title?: string;
     url?: string;
     content?: string;
     [key: string]: any;
 }
 
-export interface SearchData<T> {
+export interface SearchResult extends BaseResult {
+}
+
+export interface SearchData<T extends BaseResult> {
     query?: string;
     number_of_results?: number;
     results: T[];
@@ -65,28 +68,28 @@ export interface SearchData<T> {
     [key: string]: any;
 }
 
-export interface ImageResult {
+export interface ImageResult extends BaseResult {
     template?: string;
-    url?: string;
     thumbnail_src?: string;
     img_src?: string;
-    content?: string;
-    title?: string;
     source?: string;
     img_format?: string;
     engine?: string;
-    parsed_url?: string[],
-    engines?: string[],
-    positions?: number[],
+    parsed_url?: string[];
+    engines?: string[];
+    positions?: number[];
     score?: number;
     category?: string;
     pretty_url?: string;
-    [key: string]: any;
 }
 
-export interface ImageData {
-    query?: string;
-    number_of_results?: number;
-    results?: ImageResult[];
-    [key: string]: any;
+export interface ImageData extends SearchData<ImageResult> { }
+
+export interface VideoResult extends BaseResult {
+    thumbnail: string;
+    author: string;
+    length: string;
+    iframe_src: string;
 }
+
+export interface VideoData extends SearchData<VideoResult> { }
