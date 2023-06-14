@@ -1,37 +1,23 @@
-/* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router';
+
+import NewsSkeletonLoader from './NewsSkeletonLoader';
+import FeaturedResults from './FeaturedResults';
+
 import { api } from '@utils/api';
 import type { NewsResult } from '@utils/types';
+import PaginationButtons from '@/components/Pagination/PaginationButtons';
 
 interface NewsResultsProps {
     query: string;
 }
 
-const NewsSkeletonLoader = () => {
-    const arr = Array(15).fill('')
-    return (
-        <div className='SkeletonLoaderEntrance flex flex-col mt-8 ml-6 w-full sm:w-1/2 opacity-0 h-full max-w-[800px] transition ease'>
-            {arr.map((_, i) => {
-                return (
-                    <div 
-                        key={i}
-                        className='bg-[#EAE8ED] w-full relative overflow-hidden transition shadow-md mb-8 text-[#1d1d1f] dark:bg-[#39393cb1] dark:text-[#eae8ed] border border-[hsla(0,0%,51%,0.2)] flex flex-col space-y-2 rounded-lg p-2'>
-                        <div className='SkeletonShimmer bg-gradient-to-r from-transparent to-[#cecccfc3] dark:to-[#484849b1] via-transparent" rounded-lg py-2 bg-[#cecccf] dark:bg-[#444446b1] w-1/2' />
-                        <div className='SkeletonShimmer bg-gradient-to-r from-transparent to-[#cecccfc3] dark:to-[#484849b1] via-transparent" rounded-lg py-4 bg-[#6f6f7157] dark:bg-[#585859b1] w-1/3' />
-                        <div className='SkeletonShimmer bg-gradient-to-r from-transparent to-[#cecccfc3] dark:to-[#484849b1] via-transparent" rounded-lg py-5 bg-[#a2a1a341] dark:bg-[#444446b1] w-3/4' />
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
-
 const NewsResults = ({ query }: NewsResultsProps) => {
     const router = useRouter();
+    const pagenum = Number(router.query.pageno) ?? 1;
     const requestConfig = {
         query: query,
         safeSearchValue: 0,
-        pageno: Number(router.query.pageno) ?? 1,
+        pageno: pagenum,
         category: "news"
     };
     const { data, isLoading, error } = api.swoop.newsSearch.useQuery<NewsResult>(requestConfig);
@@ -59,23 +45,8 @@ const NewsResults = ({ query }: NewsResultsProps) => {
   return (
 
     <section className='w-full flex flex-col max-w-4xl mx-auto p-8'>
-        <h1 className='text-[#1d1d1f] dark:text-[#eae8ed] font-semibold text-2xl mb-4 pl-1'>Featured</h1>
-        <div className='flex w-full items-center justify-between'>
-            {recentNews && recentNews.slice(0,3).map((item: NewsResult, index: number) => {
-                if (item !== null)
-                    return (
-                        <div key={index}  className='w-1/3 sm:w-[30%] h-[450px] min-h-[450px] max-h-[500px] rounded-lg border border-[hsla(0,0%,51%,0.25)] dark:bg-[#39393cb1] bg-[#EAE8ED] p-4 flex items-center justify-between'>
-                            <div className='w-full flex flex-col items-center justify-center overflow-hidden group'>
-                                <img src={item!.img_src!} alt={item.title} className='object-cover w-full h-[30%] aspect-auto' loading='lazy' />
-                                <h1 className='text-[#1d1d1f] dark:text-[#eae8ed] text-xl font-semibold line-clamp-4 text-center mt-3'>{item.title}</h1>
-                                <p className='text-[#1d1d1f56] dark:text-gray-500 text-sm mt-4 flex flex-wrap mx-auto text-center line-clamp-4 whitespace-break-spaces'>{item?.content}</p>
-                                <a href={item.url} className='mt-6 text-blue-400 text-xs line-clamp-1 truncate w-full transition ease cursor-pointer'>{item.pretty_url}</a>
-                            </div>
-                    </div>
-                    );
-                })
-            }
-        </div>
+        {pagenum > 1 && <h1 className='font-semibold text-2xl text-[#8f8f9090] dark:text-[#eae8edb1] pl-1'>Page {pagenum}</h1>}
+        { pagenum <= 1 && <FeaturedResults recentNews={recentNews} /> }
         <div className='w-full flex flex-col justify-evenly space-y-8 mt-8 max-w-4xl mx-auto'>
             {recentNews && recentNews.slice(3).map((item: NewsResult, index: number) => {
                     const parsedUrl = item.parsed_url;
@@ -96,6 +67,7 @@ const NewsResults = ({ query }: NewsResultsProps) => {
                     })
                 }
         </div>
+        <PaginationButtons searchType='news' className='mx-auto' />
     </section>
   )
 }

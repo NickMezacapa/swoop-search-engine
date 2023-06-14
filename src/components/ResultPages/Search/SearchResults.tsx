@@ -11,8 +11,6 @@ import { filterOptionCell } from '@components/Settings/Widgets/SafeSearch';
 
 import { useCellValue } from '@/stateManager';
 import { api } from '@utils/api';
-import { router } from '@trpc/server';
-
 
 interface SearchResultsProps {
     query: string;
