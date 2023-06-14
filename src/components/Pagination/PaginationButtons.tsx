@@ -6,7 +6,12 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { filterOptionCell } from '@/components/Settings/Widgets/SafeSearch';
 import { useCellValue } from '@/stateManager';
 
-const PaginationButtons = () => {
+interface PaginationButtonsProps {
+    searchType: string;
+    className?: string;
+}
+
+const PaginationButtons = ({ searchType, className }: PaginationButtonsProps) => {
     const router = useRouter();
     const safeSearchValue = useCellValue(filterOptionCell);
     let switchValue: number = 0;
@@ -30,21 +35,24 @@ const PaginationButtons = () => {
     const pageno = startIndex>= 10 ? startIndex / 10 + 1 : 1;
 
   return (
-    <div className='max-w-lg text-blue-400 flex items-center justify-between pb-8'>
-        {startIndex >= 10 && (
-            <Link href={`/search?q=${router.query.q}&pageno=${pageno - 1}&safesearch=${switchValue}&start=${startIndex - 10}`}>
-                <div>
-                    <AiOutlineArrowLeft />
-                    <p>Previous</p>
-                </div>
-            </Link>
-        )}
-        <Link href={`/search?q=${router.query.q}&pageno=${pageno + 1}&safesearch=${switchValue}&start=${startIndex + 10}`}>
-            <div>
-                <AiOutlineArrowRight />
-                <p>Next</p>
-            </div>
-        </Link>
+    <div className={`max-w-lg w-[90%] text-blue-400 flex flex-col items-center justify-between pb-8 mt-6 ${className}`}>
+      <div className='w-full flex items-center justify-center text-center font-semibold text-2xl text-[#c7c6c8] mx-auto my-2'>swooooooop</div>
+        <div className={`flex items-center w-full mt-2 ${!(startIndex >= 10) ? 'justify-center' : 'justify-between'}`}>
+          {startIndex >= 10 && (
+              <Link href={`/${searchType}?q=${router.query.q}&pageno=${pageno - 1}&safesearch=${switchValue}&start=${startIndex - 10}`}>
+                  <div className='flex flex-col items-center justify-center'>
+                      <AiOutlineArrowLeft />
+                      <p>Previous</p>
+                  </div>
+              </Link>
+          )}
+          <Link href={`/${searchType}?q=${router.query.q}&pageno=${pageno + 1}&safesearch=${switchValue}&start=${startIndex + 10}`}>
+              <div className='flex flex-col items-center justify-center'>
+                  <AiOutlineArrowRight />
+                  <p>Next</p>
+              </div>
+          </Link>
+      </div>
     </div>
   )
 }

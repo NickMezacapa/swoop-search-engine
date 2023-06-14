@@ -72,7 +72,7 @@ const SearchResults = ({ query }: SearchResultsProps) => {
                     <InfoboxPreview query={query} />
                 </div>
             </div> 
-            <PaginationButtons />
+            <PaginationButtons searchType='search' />
         </div>
     );
 };

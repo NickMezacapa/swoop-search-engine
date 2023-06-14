@@ -94,3 +94,19 @@ export interface VideoResult extends BaseResult {
 }
 
 export interface VideoData extends SearchData<VideoResult> { }
+
+export interface NewsResult extends BaseResult {
+    img_src?: string | null;
+    publishedDate?: string;
+    engine: string;
+    parsed_url: string[];
+    template: string;
+    engines: string[];
+    positions: number[];
+    score: number;
+    category: string;
+    pretty_url: string;
+    pubdate?: string;
+    open_group?: boolean;
+    [key: string]: any;
+}

@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import DefaultHome from '@components/DefaultPage/DefaultHome';
 import ResultsHeader from '@components/Headers/ResultsHeader';
+import NewsResults from '@components/ResultPages/News/NewsResults';
 
 const News = () => {
   const router = useRouter();
@@ -12,6 +13,7 @@ const News = () => {
     path = router.pathname.replace(/^./, "");
   };
   if (!router.query.q) return <DefaultHome variant={path} />;
+  const query = JSON.stringify(router.query.q).replace(/\"/g, "");
 
   return (
     <section className='relative h-full min-h-[100vh] w-full overflow-x-hidden' aria-label='Swoop News'>
@@ -30,7 +32,8 @@ const News = () => {
 			<meta name="msapplication-TileColor" content="#1d1d1f" />
 			<meta name="theme-color" content="#000000" />
         </Head>
-        <ResultsHeader />
+        <ResultsHeader pathname={path} />
+        <NewsResults query={query} />
     </section>
   )
 }
