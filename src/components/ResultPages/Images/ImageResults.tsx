@@ -1,17 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
+import { useRouter } from 'next/router';
+
 import type { ImageResult } from '@utils/types';
 import { api } from '@utils/api';
 
 import SkeletonImgLoader from './SkeletonImgLoader';
+import PaginationButtons from '@/components/Pagination/PaginationButtons';
 import { filterOptionCell } from '@components/Settings/Widgets/SafeSearch';
 
 import { useCellValue } from '@/stateManager';
+
 
 interface ImageResultsProps {
     query: string;
 }
 
 const ImageResults = ({ query }: ImageResultsProps) => {
+  const router = useRouter();
   const safeSearchValue = useCellValue(filterOptionCell);
   let switchValue: number = 0;
 
@@ -33,6 +38,7 @@ const ImageResults = ({ query }: ImageResultsProps) => {
   const requestConfig = {
     query: query,
     safeSearchValue: switchValue,
+    pageno: Number(router.query.pageno) ?? 1,
     category: "images"
   };
 
@@ -53,7 +59,8 @@ const ImageResults = ({ query }: ImageResultsProps) => {
   }
 
   return (
-    <section className='mt-8 px-8 grid grid-cols-3 gap-4'>
+    <>
+    <section className='mt-8 px-8 grid grid-cols-3 gap-4 mb-20 relative'>
       {
         data?.filter((result: ImageResult) => result.img_src).map((result: ImageResult) => {
           const parsedUrl = result.parsed_url;
@@ -82,6 +89,8 @@ const ImageResults = ({ query }: ImageResultsProps) => {
       })
       }
     </section>
+    <PaginationButtons searchType='images' className='mx-auto w-full' />
+    </>
   )
 }
 
