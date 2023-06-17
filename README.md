@@ -45,5 +45,8 @@ Swoop fetches the content on behalf of the user and delivers results without rev
 
 ![swoop architecture](/public/assets/swoop-engine-arch.png)
 
+<br>
+
+## Installation 📥
 
 
