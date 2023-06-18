@@ -47,6 +47,5 @@ Swoop fetches the content on behalf of the user and delivers results without rev
 
 <br>
 
-## Installation 📥
 
 
