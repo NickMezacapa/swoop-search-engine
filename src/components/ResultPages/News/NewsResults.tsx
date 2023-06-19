@@ -5,7 +5,7 @@ import FeaturedResults from './FeaturedResults';
 
 import { api } from '@utils/api';
 import type { NewsResult } from '@utils/types';
-import PaginationButtons from '@/components/Pagination/PaginationButtons';
+import PaginationButtons from '@components/Pagination/PaginationButtons';
 
 interface NewsResultsProps {
     query: string;
