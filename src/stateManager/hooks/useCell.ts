@@ -88,7 +88,6 @@ export function useCell<Value, Args extends any[], Result>(
 ) {
     return [
         useCellValue(cell, options),
-        // We do wrong type assertion here, which results in throwing an error.
         useSetCell(cell as WritableCell<Value, Args, Result>, options),
     ];
 };
