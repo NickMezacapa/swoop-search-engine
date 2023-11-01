@@ -6,7 +6,7 @@ import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 import { useSearchFilterState } from '@contexts/SearchFilterProvider';
 import useSearchQueryValue from '@hooks/useSearchQueryValue';
 import { handleRouting } from '@utils/helpers/handleRouting';
-
+// change to views
 const SearchFormSecondary = () => {
     const [showCloseIcon, setShowCloseIcon] = useState('inline-flex');
     const searchQueryRef = useRef<HTMLInputElement | null>(null);
