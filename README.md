@@ -3,7 +3,6 @@
 ### *Swoop* *is* *a* *secure* *and* *privacy-focused* *search* *engine* *leveraging* *Searx*, *NGINX*, *TypeScript*, *tRPC*, *and* *NextJS*. *Swoop* *was* *built* *to* *offer* *users* *a* *non-intrusive*, *non-tracking*, *and* *completely* *anonymous* *way* *to* *browse* *the* *web*.
 
 ## 🟢 [Launch live site](https://www.google.com/)
-<br>
 
 ## Summary 📖
 In today's digital landscape, privacy concerns have become increasingly important. Traditional search engines, despite their convenience, often leave traces of user metadata and create user profiles without explicit consent. This can lead to privacy invasions and curated search results that may not align with personal preferences.<br>
