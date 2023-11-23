@@ -12,6 +12,7 @@ interface HeaderOptionsProps {
     active: string;
     callBack: (option: string) => void;
 }
+// change to mvc architecture
 
 const HeaderOptions = ({ active, callBack }: HeaderOptionsProps) => {
     const [hoveredOptionIndex, setHoveredOptionIndex] = useState<number | null>(null);
