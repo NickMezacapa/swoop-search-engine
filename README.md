@@ -4,8 +4,6 @@
 
 NOTE: Version 1.0.0 is not currently being maintained. Version 2.0.0 is under development and is addressing the issues presented in the previous versions.
 
-## 🟢 [Launch live site](https://www.google.com/)
-
 ## Summary 📖
 In today's digital landscape, privacy concerns have become increasingly important. Traditional search engines, despite their convenience, often leave traces of user metadata and create user profiles without explicit consent. This can lead to privacy invasions and curated search results that may not align with personal preferences.<br>
 
