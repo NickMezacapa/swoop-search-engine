@@ -200,6 +200,5 @@ export function cellWithStorage<Value>(
             return storage.setItem(key, nextValue);
         }
     );
-
     return cellInstance;
 };
