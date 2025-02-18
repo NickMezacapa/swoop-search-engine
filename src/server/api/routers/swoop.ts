@@ -33,7 +33,7 @@ async function fetchSearchResults<T extends SearchResult>(input: z.infer<typeof 
     }
 
     // Create a new SwoopClient instance and fetch the search results
-    const api = new SwoopClient<T>(); // Use type inference for SwoopClient instance
+    const api = new SwoopClient<T>();
     const searchData: T[] = await api.search(requestConfig);
     return searchData;
 }
