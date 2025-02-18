@@ -23,7 +23,7 @@ export class MockSwoopClient implements BaseClient<SearchResult> {
         if (category) params[`category_${category}`] = 'on';
 
         const response = await axios.get<SearchData<SearchResult>>(
-            `https://api.swoopsearch.dev/search`, { params }
+            `https://asdfghjkl.dev/search`, { params }
         );
 
         return response.data.results;
