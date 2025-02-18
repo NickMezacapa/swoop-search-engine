@@ -20,7 +20,6 @@ const searchInputSchema = z.object({
 // Common function for fetching search results
 async function fetchSearchResults<T extends SearchResult>(input: z.infer<typeof searchInputSchema>): Promise<T[]> {
     if (input.category && !(input.category in SearchCategory)) {
-        // If the category is not a valid SearchCategory, throw an error
         throw new Error(`Invalid category type: ${input.category}. Please use one of the following categories: All, Images, Videos, News, Maps.`);
     }
 
